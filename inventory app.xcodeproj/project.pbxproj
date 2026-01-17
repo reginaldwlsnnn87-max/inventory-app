@@ -35,16 +35,6 @@
 			path = "inventory app";
 			sourceTree = "<group>";
 		};
-		3AA5FC5E2F1BB26700455AF0 /* inventory appTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "inventory appTests";
-			sourceTree = "<group>";
-		};
-		3AA5FC682F1BB26700455AF0 /* inventory appUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "inventory appUITests";
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				3AA5FC502F1BB26600455AF0 /* inventory app */,
-				3AA5FC5E2F1BB26700455AF0 /* inventory appTests */,
-				3AA5FC682F1BB26700455AF0 /* inventory appUITests */,
 				3AA5FC4F2F1BB26600455AF0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,9 +118,6 @@
 			dependencies = (
 				3AA5FC5D2F1BB26700455AF0 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				3AA5FC5E2F1BB26700455AF0 /* inventory appTests */,
-			);
 			name = "inventory appTests";
 			packageProductDependencies = (
 			);
@@ -152,9 +137,6 @@
 			);
 			dependencies = (
 				3AA5FC672F1BB26700455AF0 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				3AA5FC682F1BB26700455AF0 /* inventory appUITests */,
 			);
 			name = "inventory appUITests";
 			packageProductDependencies = (
