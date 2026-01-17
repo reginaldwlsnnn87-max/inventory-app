@@ -17,24 +17,38 @@ struct ItemsListView: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                if filteredItems.isEmpty {
-                    emptyStateView
-                } else {
-                    ForEach(filteredItems) { item in
-                        ItemRowView(
-                            item: item,
-                            onEdit: { editingItem = item },
-                            onStockChange: { delta in adjustQuantity(for: item, delta: delta) }
-                        )
-                    }
-                    .onDelete { offsets in
-                        delete(offsets, from: filteredItems)
+            ZStack {
+                LinearGradient(
+                    colors: [Theme.backgroundTop, Theme.backgroundBottom],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
+
+                List {
+                    if filteredItems.isEmpty {
+                        emptyStateView
+                    } else {
+                        ForEach(filteredItems) { item in
+                            ItemRowView(
+                                item: item,
+                                onEdit: { editingItem = item },
+                                onStockChange: { delta in adjustQuantity(for: item, delta: delta) }
+                            )
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                        }
+                        .onDelete { offsets in
+                            delete(offsets, from: filteredItems)
+                        }
                     }
                 }
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
             }
             .navigationTitle("Inventory")
-            .searchable(text: $searchText, prompt: "Search items")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
@@ -51,6 +65,8 @@ struct ItemsListView: View {
                     Button { isPresentingAdd = true } label: { Image(systemName: "plus") }
                 }
             }
+            .searchable(text: $searchText, prompt: "Search items")
+            .tint(Theme.accent)
             .sheet(isPresented: $isPresentingAdd) {
                 ItemFormView(mode: .add)
             }
@@ -89,14 +105,15 @@ struct ItemsListView: View {
                 .font(.system(size: 36))
                 .foregroundStyle(.secondary)
             Text(title)
-                .font(.headline)
+                .font(Theme.titleFont())
             Text(subtitle)
-                .font(.subheadline)
+                .font(.system(.subheadline, design: .rounded))
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 32)
         .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
     }
 
     private func delete(_ offsets: IndexSet, from items: [InventoryItemEntity]) {
@@ -148,22 +165,22 @@ private struct ItemRowView: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(item.name)
-                        .font(.headline)
+                        .font(.system(.headline, design: .rounded))
                     HStack(spacing: 8) {
                         if !item.category.isEmpty {
                             Label(item.category, systemImage: "tag")
-                                .font(.caption)
+                                .font(.system(size: 12, weight: .medium, design: .rounded))
                                 .foregroundStyle(.secondary)
                         }
                         if !item.location.isEmpty {
                             Label(item.location, systemImage: "mappin.and.ellipse")
-                                .font(.caption)
+                                .font(.system(size: 12, weight: .medium, design: .rounded))
                                 .foregroundStyle(.secondary)
                         }
                     }
                     if !item.notes.isEmpty {
                         Text(item.notes)
-                            .font(.subheadline)
+                            .font(.system(.subheadline, design: .rounded))
                             .foregroundStyle(.secondary)
                             .lineLimit(1)
                     }
@@ -174,18 +191,18 @@ private struct ItemRowView: View {
                         let casesText = item.quantity == 1 ? "1 case" : "\(item.quantity) cases"
                         let unitsText = item.looseUnits == 1 ? "1 unit" : "\(item.looseUnits) units"
                         Text(item.looseUnits > 0 ? "\(casesText) + \(unitsText)" : casesText)
-                            .font(.subheadline)
+                            .font(.system(.subheadline, design: .rounded))
                             .foregroundStyle(.secondary)
                         Text("\(totalUnits) total units")
-                            .font(.caption)
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
                             .foregroundStyle(.secondary)
                     } else {
                         Text("Qty \(item.quantity)")
-                            .font(.subheadline)
+                            .font(.system(.subheadline, design: .rounded))
                             .foregroundStyle(.secondary)
                     }
                     Text(item.updatedAt.formatted(date: .abbreviated, time: .omitted))
-                        .font(.caption)
+                        .font(.system(size: 11, weight: .regular, design: .rounded))
                         .foregroundStyle(.tertiary)
                 }
             }
@@ -208,8 +225,16 @@ private struct ItemRowView: View {
             }
         }
         .padding(.vertical, 6)
+        .padding(.horizontal, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Theme.cardBackground)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Theme.subtleBorder, lineWidth: 1)
+        )
         .contentShape(Rectangle())
         .onTapGesture { onEdit() }
     }
 }
-

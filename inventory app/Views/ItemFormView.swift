@@ -55,46 +55,67 @@ struct ItemFormView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
-                Section("Item") {
-                    TextField("Name", text: $name)
-                    Stepper(value: $quantity, in: 0...1_000_000) {
-                        HStack {
-                            Text("Cases")
-                            Spacer()
-                            Text("\(quantity)")
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                }
+            ZStack {
+                LinearGradient(
+                    colors: [Theme.backgroundTop, Theme.backgroundBottom],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
 
-                Section("Details") {
-                    TextField("Category", text: $category)
-                    TextField("Location", text: $location)
-                    Stepper(value: $unitsPerCase, in: 0...1_000) {
-                        HStack {
-                            Text("Units per Case")
-                            Spacer()
-                            Text("\(unitsPerCase)")
-                                .foregroundStyle(.secondary)
+                Form {
+                    Section {
+                        TextField("Name", text: $name)
+                        Stepper(value: $quantity, in: 0...1_000_000) {
+                            HStack {
+                                Text("Cases")
+                                Spacer()
+                                Text("\(quantity)")
+                                    .foregroundStyle(.secondary)
+                            }
                         }
+                    } header: {
+                        Text("Item")
+                            .font(Theme.sectionFont())
                     }
-                    Stepper(value: $looseUnits, in: looseUnitsRange) {
-                        HStack {
-                            Text("Loose Units")
-                            Spacer()
-                            Text("\(looseUnits)")
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                }
 
-                Section("Notes") {
-                    TextField("Optional", text: $notes, axis: .vertical)
-                        .lineLimit(3...6)
+                    Section {
+                        TextField("Category", text: $category)
+                        TextField("Location", text: $location)
+                        Stepper(value: $unitsPerCase, in: 0...1_000) {
+                            HStack {
+                                Text("Units per Case")
+                                Spacer()
+                                Text("\(unitsPerCase)")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        Stepper(value: $looseUnits, in: looseUnitsRange) {
+                            HStack {
+                                Text("Loose Units")
+                                Spacer()
+                                Text("\(looseUnits)")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    } header: {
+                        Text("Details")
+                            .font(Theme.sectionFont())
+                    }
+
+                    Section {
+                        TextField("Optional", text: $notes, axis: .vertical)
+                            .lineLimit(3...6)
+                    } header: {
+                        Text("Notes")
+                            .font(Theme.sectionFont())
+                    }
                 }
+                .scrollContentBackground(.hidden)
             }
             .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
@@ -104,6 +125,7 @@ struct ItemFormView: View {
                         .disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 }
             }
+            .tint(Theme.accent)
         }
     }
 
@@ -179,4 +201,3 @@ struct ItemFormView: View {
         return (normalizedCases, clampedUnitsPerCase, normalizedLooseUnits)
     }
 }
-
