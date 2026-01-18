@@ -8,6 +8,10 @@ final class InventoryDataController: ObservableObject {
     init() {
         let model = Self.makeModel()
         container = NSPersistentContainer(name: "InventoryModel", managedObjectModel: model)
+        if let description = container.persistentStoreDescriptions.first {
+            description.setOption(true as NSNumber, forKey: NSMigratePersistentStoresAutomaticallyOption)
+            description.setOption(true as NSNumber, forKey: NSInferMappingModelAutomaticallyOption)
+        }
         container.loadPersistentStores { _, _ in }
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         container.viewContext.automaticallyMergesChangesFromParent = true
@@ -37,10 +41,14 @@ final class InventoryDataController: ObservableObject {
         let location = attribute(name: "location", type: .stringAttributeType, optional: false, defaultValue: "")
         let unitsPerCase = attribute(name: "unitsPerCase", type: .integer64AttributeType, optional: false, defaultValue: 0)
         let looseUnits = attribute(name: "looseUnits", type: .integer64AttributeType, optional: false, defaultValue: 0)
+        let eachesPerUnit = attribute(name: "eachesPerUnit", type: .integer64AttributeType, optional: false, defaultValue: 0)
+        let looseEaches = attribute(name: "looseEaches", type: .integer64AttributeType, optional: false, defaultValue: 0)
+        let isLiquid = attribute(name: "isLiquid", type: .booleanAttributeType, optional: false, defaultValue: false)
+        let gallonFraction = attribute(name: "gallonFraction", type: .doubleAttributeType, optional: false, defaultValue: 0.0)
         let createdAt = attribute(name: "createdAt", type: .dateAttributeType, optional: false)
         let updatedAt = attribute(name: "updatedAt", type: .dateAttributeType, optional: false)
 
-        entity.properties = [id, name, quantity, notes, category, location, unitsPerCase, looseUnits, createdAt, updatedAt]
+        entity.properties = [id, name, quantity, notes, category, location, unitsPerCase, looseUnits, eachesPerUnit, looseEaches, isLiquid, gallonFraction, createdAt, updatedAt]
         model.entities = [entity]
         return model
     }
@@ -59,4 +67,3 @@ final class InventoryDataController: ObservableObject {
         return attribute
     }
 }
-

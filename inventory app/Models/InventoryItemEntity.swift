@@ -17,9 +17,12 @@ extension InventoryItemEntity {
     @NSManaged var location: String
     @NSManaged var unitsPerCase: Int64
     @NSManaged var looseUnits: Int64
+    @NSManaged var eachesPerUnit: Int64
+    @NSManaged var looseEaches: Int64
+    @NSManaged var isLiquid: Bool
+    @NSManaged var gallonFraction: Double
     @NSManaged var createdAt: Date
     @NSManaged var updatedAt: Date
 }
 
 extension InventoryItemEntity: Identifiable {}
-
