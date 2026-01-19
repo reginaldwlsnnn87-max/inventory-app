@@ -15,7 +15,10 @@ struct NotesEditView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            ZStack {
+                AmbientBackgroundView()
+
+                Form {
                 Section {
                     TextField("Notes", text: $notes, axis: .vertical)
                         .lineLimit(4...8)
@@ -23,6 +26,8 @@ struct NotesEditView: View {
                     Text("Notes")
                         .font(Theme.sectionFont())
                 }
+            }
+                .scrollContentBackground(.hidden)
             }
             .navigationTitle("Notes")
             .navigationBarTitleDisplayMode(.inline)

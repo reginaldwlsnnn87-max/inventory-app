@@ -380,6 +380,8 @@
 				DEVELOPMENT_TEAM = Q568WBY4ST;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Capture shelf photos to speed up counts.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Select shelf photos to tag items and update counts.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -412,6 +414,8 @@
 				DEVELOPMENT_TEAM = Q568WBY4ST;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Capture shelf photos to speed up counts.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Select shelf photos to tag items and update counts.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -22,7 +22,10 @@ struct QuantityEditView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            ZStack {
+                AmbientBackgroundView()
+
+                Form {
                 Section {
                     if item.isLiquid {
                         TextField("Units (Gallons)", text: $unitsText)
@@ -89,6 +92,8 @@ struct QuantityEditView: View {
                             .font(Theme.sectionFont())
                     }
                 }
+            }
+                .scrollContentBackground(.hidden)
             }
             .navigationTitle("Set Amount")
             .navigationBarTitleDisplayMode(.inline)

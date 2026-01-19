@@ -101,21 +101,26 @@ struct ItemsListView: View {
     @State private var shiftMode: ShiftMode = .open
     @State private var isPresentingAdd = false
     @State private var isPresentingQuickAdd = false
+    @State private var isPresentingScan = false
+    @State private var isPresentingHelp = false
+    @State private var isPresentingQuickActions = false
+    @State private var isPresentingMenu = false
+    @State private var isPresentingQuickAdjust = false
+    @State private var isPresentingBarcodeScan = false
+    @State private var pendingQuickAction: QuickAction?
+    @State private var addPrefillBarcode: String?
     @State private var editingItem: InventoryItemEntity?
+    @State private var deleteCandidate: InventoryItemEntity?
     @State private var editingAmountItem: InventoryItemEntity?
     @State private var editingNoteItem: InventoryItemEntity?
+    @State private var quickAdjustItem: InventoryItemEntity?
     @State private var isPresentingSetPicker = false
     @State private var isPresentingNotePicker = false
 
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient(
-                    colors: [Theme.backgroundTop, Theme.backgroundBottom],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
+                AmbientBackgroundView()
 
                 List {
                     headerSection
@@ -127,10 +132,36 @@ struct ItemsListView: View {
                                 item: item,
                                 onEdit: { editingItem = item },
                                 onStockChange: { delta in adjustQuantity(for: item, delta: delta) },
-                                onEditAmount: { editingAmountItem = item }
+                                onEditAmount: { editingAmountItem = item },
+                                onRequestDelete: { deleteCandidate = item }
                             )
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button {
+                                    editingAmountItem = item
+                                } label: {
+                                    Label("Set", systemImage: "pencil")
+                                }
+                                .tint(Theme.accent)
+
+                                Button {
+                                    editingNoteItem = item
+                                } label: {
+                                    Label("Note", systemImage: "note.text")
+                                }
+                                .tint(.gray)
+                            }
+                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                Button {
+                                    item.isPinned.toggle()
+                                    item.updatedAt = Date()
+                                    dataController.save()
+                                } label: {
+                                    Label(item.isPinned ? "Unpin" : "Pin", systemImage: item.isPinned ? "pin.slash" : "pin")
+                                }
+                                .tint(.orange)
+                            }
                             .transition(.move(edge: .bottom).combined(with: .opacity))
                             .animation(
                                 .spring(response: 0.5, dampingFraction: 0.85).delay(Double(index) * 0.02),
@@ -156,6 +187,18 @@ struct ItemsListView: View {
                     }
                     .accessibilityLabel("Quick Add")
                 }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button { isPresentingScan = true } label: {
+                        Image(systemName: "camera.viewfinder")
+                    }
+                    .accessibilityLabel("Shelf Scan")
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button { isPresentingBarcodeScan = true } label: {
+                        Image(systemName: "barcode.viewfinder")
+                    }
+                    .accessibilityLabel("Scan Barcode")
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Picker("Category", selection: $selectedCategory) {
@@ -168,16 +211,61 @@ struct ItemsListView: View {
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button { isPresentingAdd = true } label: { Image(systemName: "plus") }
+                    Button { isPresentingQuickActions = true } label: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                    .accessibilityLabel("Quick Actions")
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        isPresentingHelp = true
+                    } label: {
+                        Image(systemName: "info.circle")
+                    }
+                    .accessibilityLabel("Features and Help")
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        isPresentingMenu = true
+                    } label: {
+                        Image(systemName: "line.3.horizontal")
+                    }
+                    .accessibilityLabel("Menu")
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        addPrefillBarcode = nil
+                        isPresentingAdd = true
+                    } label: { Image(systemName: "plus") }
                 }
             }
             .searchable(text: $searchText, prompt: "Search items")
             .tint(Theme.accent)
             .sheet(isPresented: $isPresentingAdd) {
-                ItemFormView(mode: .add)
+                ItemFormView(mode: .add(barcode: addPrefillBarcode))
             }
             .sheet(isPresented: $isPresentingQuickAdd) {
                 QuickAddView()
+            }
+            .sheet(isPresented: $isPresentingScan) {
+                VisualShelfScanView()
+            }
+            .sheet(isPresented: $isPresentingHelp) {
+                FeaturesMenuView()
+            }
+            .sheet(isPresented: $isPresentingQuickActions) {
+                QuickActionsView { action in
+                    pendingQuickAction = action
+                    isPresentingQuickActions = false
+                }
+            }
+            .sheet(isPresented: $isPresentingMenu) {
+                MenuView()
+            }
+            .sheet(isPresented: $isPresentingBarcodeScan) {
+                BarcodeScanView { code in
+                    handleBarcodeScan(code)
+                }
             }
             .sheet(item: $editingItem) { item in
                 ItemFormView(mode: .edit(item))
@@ -198,6 +286,42 @@ struct ItemsListView: View {
                     editingNoteItem = item
                 }
             }
+            .sheet(isPresented: $isPresentingQuickAdjust) {
+                ItemSelectionView(title: "Stock In / Out", items: filteredItems) { item in
+                    quickAdjustItem = item
+                }
+            }
+            .sheet(item: $quickAdjustItem) { item in
+                QuickStockAdjustView(item: item)
+            }
+            .onChange(of: isPresentingQuickActions) { _, isPresented in
+                guard !isPresented, let action = pendingQuickAction else { return }
+                pendingQuickAction = nil
+                DispatchQueue.main.async {
+                    handleQuickAction(action)
+                }
+            }
+            .confirmationDialog(
+                "Delete item?",
+                isPresented: .init(
+                    get: { deleteCandidate != nil },
+                    set: { if !$0 { deleteCandidate = nil } }
+                ),
+                titleVisibility: .visible
+            ) {
+                Button("Delete", role: .destructive) {
+                    if let item = deleteCandidate {
+                        context.delete(item)
+                        dataController.save()
+                    }
+                    deleteCandidate = nil
+                }
+                Button("Cancel", role: .cancel) {
+                    deleteCandidate = nil
+                }
+            } message: {
+                Text("This will remove the item from your inventory.")
+            }
             .safeAreaInset(edge: .bottom) {
                 QuickCountBarView(
                     onQuickAdd: { isPresentingQuickAdd = true },
@@ -206,6 +330,60 @@ struct ItemsListView: View {
                 )
             }
         }
+    }
+
+    private func handleQuickAction(_ action: QuickAction) {
+        switch action {
+        case .stockInOut:
+            isPresentingQuickAdjust = true
+        case .setAmount:
+            isPresentingSetPicker = true
+        case .addItem:
+            addPrefillBarcode = nil
+            isPresentingAdd = true
+        case .quickAdd:
+            isPresentingQuickAdd = true
+        case .shelfScan:
+            isPresentingScan = true
+        case .barcodeScan:
+            isPresentingBarcodeScan = true
+        case .addNote:
+            isPresentingNotePicker = true
+        case .close:
+            break
+        }
+    }
+
+    private func handleBarcodeScan(_ code: String) {
+        let trimmed = code.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        if let match = items.first(where: { $0.barcode == trimmed }) {
+            applyStockIn(to: match, units: 1)
+        } else {
+            addPrefillBarcode = trimmed
+            isPresentingAdd = true
+        }
+    }
+
+    private func applyStockIn(to item: InventoryItemEntity, units: Int64) {
+        guard units > 0 else { return }
+        if item.isLiquid {
+            let currentGallons = Double(item.looseUnits) + item.gallonFraction
+            let updated = currentGallons + Double(units)
+            let whole = floor(updated)
+            let fraction = updated - whole
+            item.looseUnits = Int64(whole)
+            item.gallonFraction = fraction
+        } else if item.unitsPerCase > 0 {
+            let totalUnits = item.quantity * item.unitsPerCase + item.looseUnits + units
+            item.quantity = totalUnits / item.unitsPerCase
+            item.looseUnits = totalUnits % item.unitsPerCase
+        } else {
+            item.quantity += units
+        }
+        item.updatedAt = Date()
+        dataController.save()
+        Haptics.success()
     }
 
     private var filteredItems: [InventoryItemEntity] {
@@ -233,16 +411,30 @@ struct ItemsListView: View {
         let subtitle = items.isEmpty
             ? "Add your first item to start tracking inventory."
             : "Try adjusting your search or category filter."
-        return VStack(spacing: 12) {
-            Image(systemName: "shippingbox")
-                .font(.system(size: 36))
-                .foregroundStyle(Theme.textSecondary)
+        return VStack(spacing: 14) {
+            ZStack {
+                Circle()
+                    .fill(Theme.glow)
+                    .frame(width: 140, height: 140)
+                Image(systemName: "shippingbox.and.arrow.backward")
+                    .font(.system(size: 44, weight: .semibold))
+                    .foregroundStyle(Theme.accent)
+            }
             Text(title)
                 .font(Theme.titleFont())
                 .foregroundStyle(Theme.textPrimary)
             Text(subtitle)
-                .font(.system(.subheadline, design: .rounded))
+                .font(Theme.font(13, weight: .medium))
                 .foregroundStyle(Theme.textSecondary)
+                .multilineTextAlignment(.center)
+            if items.isEmpty {
+                Button {
+                    isPresentingAdd = true
+                } label: {
+                    Label("Add your first item", systemImage: "plus.circle.fill")
+                }
+                .buttonStyle(.borderedProminent)
+            }
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 32)
@@ -288,6 +480,7 @@ struct ItemsListView: View {
             || item.notes.lowercased().contains(query)
             || item.category.lowercased().contains(query)
             || item.location.lowercased().contains(query)
+            || item.barcode.lowercased().contains(query)
     }
 
     private func matchesCategory(_ item: InventoryItemEntity) -> Bool {
@@ -305,12 +498,17 @@ struct ItemsListView: View {
         switch shiftMode {
         case .open:
             return items.sorted {
-                $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
+                if $0.isPinned != $1.isPinned { return $0.isPinned && !$1.isPinned }
+                return $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
             }
         case .mid:
-            return items.sorted { $0.updatedAt > $1.updatedAt }
+            return items.sorted {
+                if $0.isPinned != $1.isPinned { return $0.isPinned && !$1.isPinned }
+                return $0.updatedAt > $1.updatedAt
+            }
         case .close:
             return items.sorted {
+                if $0.isPinned != $1.isPinned { return $0.isPinned && !$1.isPinned }
                 let lhsUnits = totalUnitsValue($0)
                 let rhsUnits = totalUnitsValue($1)
                 if lhsUnits != rhsUnits { return lhsUnits < rhsUnits }
@@ -406,7 +604,7 @@ private struct TodayHeaderView: View {
                         .font(Theme.titleFont())
                         .foregroundStyle(Theme.textPrimary)
                     Text("\(itemCount) items tracked")
-                        .font(.system(.subheadline, design: .rounded))
+                        .font(Theme.font(13, weight: .medium))
                         .foregroundStyle(Theme.textSecondary)
                 }
                 Spacer()
@@ -440,10 +638,10 @@ private struct StatPill: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title.uppercased())
-                .font(.system(size: 11, weight: .semibold, design: .rounded))
+                .font(Theme.font(11, weight: .semibold))
                 .foregroundStyle(Theme.textSecondary)
             Text(value)
-                .font(.system(size: 20, weight: .semibold, design: .rounded))
+                .font(Theme.font(20, weight: .semibold))
                 .foregroundStyle(Theme.textPrimary)
         }
         .padding(.vertical, 10)
@@ -470,30 +668,30 @@ private struct CategoryShelfView: View {
                 HStack(spacing: 12) {
                     ForEach(summaries) { summary in
                         VStack(alignment: .leading, spacing: 6) {
-                            Text(summary.name)
-                                .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                .foregroundStyle(Theme.textPrimary)
-                            Text("\(summary.itemCount) items")
-                                .font(.system(size: 12, weight: .regular, design: .rounded))
+                        Text(summary.name)
+                            .font(Theme.font(14, weight: .semibold))
+                            .foregroundStyle(Theme.textPrimary)
+                        Text("\(summary.itemCount) items")
+                            .font(Theme.font(12))
+                            .foregroundStyle(Theme.textSecondary)
+                        Text("\(summary.cases) cases")
+                            .font(Theme.font(12))
+                            .foregroundStyle(Theme.textSecondary)
+                        if summary.units > 0 {
+                            Text("\(summary.units) units")
+                                .font(Theme.font(12))
                                 .foregroundStyle(Theme.textSecondary)
-                            Text("\(summary.cases) cases")
-                                .font(.system(size: 12, weight: .regular, design: .rounded))
+                        }
+                        if summary.eaches > 0 {
+                            Text("\(summary.eaches) each")
+                                .font(Theme.font(12))
                                 .foregroundStyle(Theme.textSecondary)
-                            if summary.units > 0 {
-                                Text("\(summary.units) units")
-                                    .font(.system(size: 12, weight: .regular, design: .rounded))
-                                    .foregroundStyle(Theme.textSecondary)
-                            }
-                            if summary.eaches > 0 {
-                                Text("\(summary.eaches) each")
-                                    .font(.system(size: 12, weight: .regular, design: .rounded))
-                                    .foregroundStyle(Theme.textSecondary)
-                            }
-                            if summary.gallons > 0 {
-                                Text("\(formattedGallons(summary.gallons)) gallons")
-                                    .font(.system(size: 12, weight: .regular, design: .rounded))
-                                    .foregroundStyle(Theme.textSecondary)
-                            }
+                        }
+                        if summary.gallons > 0 {
+                            Text("\(formattedGallons(summary.gallons)) gallons")
+                                .font(Theme.font(12))
+                                .foregroundStyle(Theme.textSecondary)
+                        }
                         }
                         .padding(12)
                         .frame(width: 140, alignment: .leading)
@@ -529,10 +727,10 @@ private struct InspiredBannerView: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 Text("Inspired by Racetrac")
-                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    .font(Theme.font(13, weight: .semibold))
                     .foregroundStyle(Theme.textPrimary)
                 Text("Manager tools, built for managers")
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .font(Theme.font(12, weight: .medium))
                     .foregroundStyle(Theme.textSecondary)
             }
 
@@ -556,6 +754,7 @@ private struct ItemRowView: View {
     let onEdit: () -> Void
     let onStockChange: (Int64) -> Void
     let onEditAmount: () -> Void
+    let onRequestDelete: () -> Void
 
     var body: some View {
         let hasEaches = item.eachesPerUnit > 0 && item.unitsPerCase > 0
@@ -569,23 +768,23 @@ private struct ItemRowView: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(item.name)
-                        .font(.system(.headline, design: .rounded))
+                        .font(Theme.font(18, weight: .semibold))
                         .foregroundStyle(Theme.textPrimary)
                     HStack(spacing: 8) {
                         if !item.category.isEmpty {
                             Label(item.category, systemImage: "tag")
-                                .font(.system(size: 12, weight: .medium, design: .rounded))
+                                .font(Theme.font(12, weight: .medium))
                                 .foregroundStyle(Theme.textSecondary)
                         }
                         if !item.location.isEmpty {
                             Label(item.location, systemImage: "mappin.and.ellipse")
-                                .font(.system(size: 12, weight: .medium, design: .rounded))
+                                .font(Theme.font(12, weight: .medium))
                                 .foregroundStyle(Theme.textSecondary)
                         }
                     }
                     if !item.notes.isEmpty {
                         Text(item.notes)
-                            .font(.system(.subheadline, design: .rounded))
+                            .font(Theme.font(13, weight: .medium))
                             .foregroundStyle(Theme.textSecondary)
                             .lineLimit(1)
                     }
@@ -594,10 +793,10 @@ private struct ItemRowView: View {
                 VStack(alignment: .trailing, spacing: 4) {
                     if item.isLiquid {
                         Text("Total Units \(totalUnitsValue(item))")
-                            .font(.system(.subheadline, design: .rounded))
+                            .font(Theme.font(13, weight: .medium))
                             .foregroundStyle(Theme.textSecondary)
                         Text("\(formattedGallons(gallonsTotal)) gallons")
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                            .font(Theme.font(12, weight: .medium))
                             .foregroundStyle(Theme.textSecondary)
                     } else if item.unitsPerCase > 0 {
                         let casesText = item.quantity == 1 ? "1 case" : "\(item.quantity) cases"
@@ -609,22 +808,33 @@ private struct ItemRowView: View {
                             item.looseEaches > 0 ? eachesText : nil
                         ].compactMap { $0 }
                         Text(parts.joined(separator: " + "))
-                            .font(.system(.subheadline, design: .rounded))
+                            .font(Theme.font(13, weight: .medium))
                             .foregroundStyle(Theme.textSecondary)
                         if hasEaches {
                             Text("\(totalEaches) total each")
-                                .font(.system(size: 12, weight: .medium, design: .rounded))
+                                .font(Theme.font(12, weight: .medium))
                                 .foregroundStyle(Theme.textSecondary)
                         }
                     } else {
                         Text("Qty \(item.quantity)")
-                            .font(.system(.subheadline, design: .rounded))
+                            .font(Theme.font(13, weight: .medium))
                             .foregroundStyle(Theme.textSecondary)
                     }
                     Text(item.updatedAt.formatted(date: .abbreviated, time: .omitted))
-                        .font(.system(size: 11, weight: .regular, design: .rounded))
+                        .font(Theme.font(11))
                         .foregroundStyle(Theme.textTertiary)
                 }
+            }
+            if let recommendation = reorderRecommendation {
+                Label(
+                    reorderStatusText(recommendation),
+                    systemImage: recommendation.suggestedUnits > 0
+                        ? "exclamationmark.triangle.fill"
+                        : "checkmark.seal"
+                )
+                .font(Theme.font(12, weight: .medium))
+                .foregroundStyle(recommendation.suggestedUnits > 0 ? Color.orange : Theme.textSecondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
             HStack(spacing: 12) {
                 Button {
@@ -656,7 +866,7 @@ private struct ItemRowView: View {
         .padding(.horizontal, 8)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Theme.cardBackground)
+                .fill(Theme.cardBackground.opacity(0.94))
         )
         .overlay(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
@@ -664,5 +874,33 @@ private struct ItemRowView: View {
         )
         .contentShape(Rectangle())
         .onTapGesture { onEdit() }
+        .onLongPressGesture {
+            Haptics.tap()
+            onRequestDelete()
+        }
+    }
+
+    private var onHandUnits: Int64 {
+        Int64(totalUnitsValue(item))
+    }
+
+    private var reorderRecommendation: (reorderPoint: Int64, suggestedUnits: Int64)? {
+        guard item.averageDailyUsage > 0, item.leadTimeDays > 0 else { return nil }
+        let demandDuringLead = Int64((item.averageDailyUsage * Double(item.leadTimeDays)).rounded(.up))
+        let reorderPoint = max(0, demandDuringLead + item.safetyStockUnits)
+        let suggestedUnits = max(0, reorderPoint - onHandUnits)
+        return (reorderPoint, suggestedUnits)
+    }
+
+    private func reorderStatusText(_ recommendation: (reorderPoint: Int64, suggestedUnits: Int64)) -> String {
+        let reorderPointText = unitText(recommendation.reorderPoint)
+        if recommendation.suggestedUnits > 0 {
+            return "Reorder \(unitText(recommendation.suggestedUnits)) (target \(reorderPointText))"
+        }
+        return "On track (target \(reorderPointText))"
+    }
+
+    private func unitText(_ value: Int64) -> String {
+        value == 1 ? "1 unit" : "\(value) units"
     }
 }

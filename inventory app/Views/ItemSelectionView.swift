@@ -16,11 +16,11 @@ struct ItemSelectionView: View {
                 } label: {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(item.name)
-                            .font(.system(.headline, design: .rounded))
+                            .font(Theme.font(16, weight: .semibold))
                             .foregroundStyle(Theme.textPrimary)
                         if !item.category.isEmpty {
                             Text(item.category)
-                                .font(.system(.subheadline, design: .rounded))
+                                .font(Theme.font(12, weight: .medium))
                                 .foregroundStyle(Theme.textSecondary)
                         }
                     }

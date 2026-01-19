@@ -4,13 +4,13 @@ import Foundation
 
 struct ItemFormView: View {
     enum Mode: Identifiable {
-        case add
+        case add(barcode: String?)
         case edit(InventoryItemEntity)
 
         var id: String {
             switch self {
-            case .add:
-                return "add"
+            case .add(let barcode):
+                return "add-\(barcode ?? "none")"
             case .edit(let item):
                 return item.id.uuidString
             }
@@ -34,12 +34,17 @@ struct ItemFormView: View {
     @State private var eaches: Int
     @State private var isLiquid: Bool
     @State private var gallonFractionText: String
+    @State private var isPinned: Bool
+    @State private var barcode: String
+    @State private var averageDailyUsage: Double
+    @State private var leadTimeDays: Int
+    @State private var safetyStockUnits: Int
 
     init(mode: Mode) {
         self.mode = mode
 
         switch mode {
-        case .add:
+        case .add(let barcode):
             _name = State(initialValue: "")
             _quantity = State(initialValue: 1)
             _notes = State(initialValue: "")
@@ -51,6 +56,11 @@ struct ItemFormView: View {
             _eaches = State(initialValue: 0)
             _isLiquid = State(initialValue: false)
             _gallonFractionText = State(initialValue: "")
+            _isPinned = State(initialValue: false)
+            _barcode = State(initialValue: barcode ?? "")
+            _averageDailyUsage = State(initialValue: 0)
+            _leadTimeDays = State(initialValue: 0)
+            _safetyStockUnits = State(initialValue: 0)
         case .edit(let item):
             _name = State(initialValue: item.name)
             _quantity = State(initialValue: Int(item.quantity))
@@ -63,30 +73,31 @@ struct ItemFormView: View {
             _eaches = State(initialValue: Int(item.looseEaches))
             _isLiquid = State(initialValue: item.isLiquid)
             _gallonFractionText = State(initialValue: item.gallonFraction == 0 ? "" : String(item.gallonFraction))
+            _isPinned = State(initialValue: item.isPinned)
+            _barcode = State(initialValue: item.barcode)
+            _averageDailyUsage = State(initialValue: item.averageDailyUsage)
+            _leadTimeDays = State(initialValue: Int(item.leadTimeDays))
+            _safetyStockUnits = State(initialValue: Int(item.safetyStockUnits))
         }
     }
 
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient(
-                    colors: [Theme.backgroundTop, Theme.backgroundBottom],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
+                AmbientBackgroundView()
 
                 Form {
                     Section {
                         TextField("Name", text: $name)
                     } header: {
-                        Text("Item")
-                            .font(Theme.sectionFont())
+                            Text("Item")
+                                .font(Theme.sectionFont())
                     }
 
                     Section {
                         TextField("Category", text: $category)
                         TextField("Location", text: $location)
+                        TextField("Barcode", text: $barcode)
                         Toggle("Liquid (Gallons)", isOn: $isLiquid)
                         if !isLiquid {
                             Stepper(value: $quantity, in: 0...1_000_000) {
@@ -151,6 +162,43 @@ struct ItemFormView: View {
                         }
                     } header: {
                         Text("Details")
+                            .font(Theme.sectionFont())
+                    }
+
+                    Section {
+                        Toggle("Pin Item", isOn: $isPinned)
+                    } header: {
+                        Text("Priority")
+                            .font(Theme.sectionFont())
+                    }
+
+                    Section {
+                        TextField(
+                            "Avg daily usage",
+                            value: $averageDailyUsage,
+                            format: .number.precision(.fractionLength(0...2))
+                        )
+                        #if os(iOS)
+                        .keyboardType(.decimalPad)
+                        #endif
+                        Stepper(value: $leadTimeDays, in: 0...365) {
+                            HStack {
+                                Text("Lead time (days)")
+                                Spacer()
+                                Text("\(leadTimeDays)")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        Stepper(value: $safetyStockUnits, in: 0...1_000_000) {
+                            HStack {
+                                Text("Safety stock (units)")
+                                Spacer()
+                                Text("\(safetyStockUnits)")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    } header: {
+                        Text("Reorder")
                             .font(Theme.sectionFont())
                     }
 
@@ -229,6 +277,7 @@ struct ItemFormView: View {
         let updatedNotes = notes.trimmingCharacters(in: .whitespacesAndNewlines)
         let updatedCategory = category.trimmingCharacters(in: .whitespacesAndNewlines)
         let updatedLocation = location.trimmingCharacters(in: .whitespacesAndNewlines)
+        let updatedBarcode = barcode.trimmingCharacters(in: .whitespacesAndNewlines)
         let extraGallons = Double(gallonFractionText) ?? 0
         let normalized = normalizeCounts(
             cases: quantity,
@@ -237,6 +286,9 @@ struct ItemFormView: View {
             eachesPerUnit: eachesPerUnit,
             eaches: eaches
         )
+        let clampedDailyUsage = max(0, averageDailyUsage)
+        let clampedLeadTimeDays = max(0, leadTimeDays)
+        let clampedSafetyStock = max(0, safetyStockUnits)
 
         switch mode {
         case .add:
@@ -253,6 +305,11 @@ struct ItemFormView: View {
             item.looseEaches = Int64(normalized.eaches)
             item.isLiquid = isLiquid
             item.gallonFraction = isLiquid ? extraGallons : 0
+            item.isPinned = isPinned
+            item.barcode = updatedBarcode
+            item.averageDailyUsage = clampedDailyUsage
+            item.leadTimeDays = Int64(clampedLeadTimeDays)
+            item.safetyStockUnits = Int64(clampedSafetyStock)
             item.createdAt = Date()
             item.updatedAt = Date()
         case .edit(let item):
@@ -267,6 +324,11 @@ struct ItemFormView: View {
             item.looseEaches = Int64(normalized.eaches)
             item.isLiquid = isLiquid
             item.gallonFraction = isLiquid ? extraGallons : 0
+            item.isPinned = isPinned
+            item.barcode = updatedBarcode
+            item.averageDailyUsage = clampedDailyUsage
+            item.leadTimeDays = Int64(clampedLeadTimeDays)
+            item.safetyStockUnits = Int64(clampedSafetyStock)
             item.updatedAt = Date()
         }
 

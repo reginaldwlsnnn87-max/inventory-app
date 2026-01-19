@@ -21,6 +21,11 @@ extension InventoryItemEntity {
     @NSManaged var looseEaches: Int64
     @NSManaged var isLiquid: Bool
     @NSManaged var gallonFraction: Double
+    @NSManaged var isPinned: Bool
+    @NSManaged var barcode: String
+    @NSManaged var averageDailyUsage: Double
+    @NSManaged var leadTimeDays: Int64
+    @NSManaged var safetyStockUnits: Int64
     @NSManaged var createdAt: Date
     @NSManaged var updatedAt: Date
 }

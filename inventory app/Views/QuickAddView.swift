@@ -20,12 +20,7 @@ struct QuickAddView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient(
-                    colors: [Theme.backgroundTop, Theme.backgroundBottom],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
+                AmbientBackgroundView()
 
                 Form {
                     Section {

@@ -45,10 +45,35 @@ final class InventoryDataController: ObservableObject {
         let looseEaches = attribute(name: "looseEaches", type: .integer64AttributeType, optional: false, defaultValue: 0)
         let isLiquid = attribute(name: "isLiquid", type: .booleanAttributeType, optional: false, defaultValue: false)
         let gallonFraction = attribute(name: "gallonFraction", type: .doubleAttributeType, optional: false, defaultValue: 0.0)
+        let isPinned = attribute(name: "isPinned", type: .booleanAttributeType, optional: false, defaultValue: false)
+        let barcode = attribute(name: "barcode", type: .stringAttributeType, optional: false, defaultValue: "")
+        let averageDailyUsage = attribute(name: "averageDailyUsage", type: .doubleAttributeType, optional: false, defaultValue: 0.0)
+        let leadTimeDays = attribute(name: "leadTimeDays", type: .integer64AttributeType, optional: false, defaultValue: 0)
+        let safetyStockUnits = attribute(name: "safetyStockUnits", type: .integer64AttributeType, optional: false, defaultValue: 0)
         let createdAt = attribute(name: "createdAt", type: .dateAttributeType, optional: false)
         let updatedAt = attribute(name: "updatedAt", type: .dateAttributeType, optional: false)
 
-        entity.properties = [id, name, quantity, notes, category, location, unitsPerCase, looseUnits, eachesPerUnit, looseEaches, isLiquid, gallonFraction, createdAt, updatedAt]
+        entity.properties = [
+            id,
+            name,
+            quantity,
+            notes,
+            category,
+            location,
+            unitsPerCase,
+            looseUnits,
+            eachesPerUnit,
+            looseEaches,
+            isLiquid,
+            gallonFraction,
+            isPinned,
+            barcode,
+            averageDailyUsage,
+            leadTimeDays,
+            safetyStockUnits,
+            createdAt,
+            updatedAt
+        ]
         model.entities = [entity]
         return model
     }
