@@ -2,8 +2,8 @@ import SwiftUI
 import CoreData
 
 struct PurchaseOrderAddItemsView: View {
-    @Environment(\.managedObjectContext) private var context
-    @EnvironmentObject private var dataController: InventoryDataController
+    @EnvironmentObject private var purchaseOrderStore: PurchaseOrderStore
+    @EnvironmentObject private var authStore: AuthStore
     @Environment(\.dismiss) private var dismiss
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \InventoryItemEntity.name, ascending: true)],
@@ -20,7 +20,7 @@ struct PurchaseOrderAddItemsView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     headerCard
-                    ForEach(items) { item in
+                    ForEach(workspaceItems) { item in
                         selectionRow(for: item)
                     }
                     applyButton
@@ -45,20 +45,13 @@ struct PurchaseOrderAddItemsView: View {
             Text("Select items to add to a new purchase order.")
                 .font(Theme.font(14, weight: .semibold))
                 .foregroundStyle(Theme.textPrimary)
-            Text("This creates a draft order list (preview only).")
+            Text("Suggested quantities use lead time demand plus supplier rules (MOQ and case pack increments).")
                 .font(Theme.font(12, weight: .medium))
                 .foregroundStyle(Theme.textSecondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Theme.cardBackground.opacity(0.92))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(Theme.subtleBorder, lineWidth: 1)
-        )
+        .inventoryCard(cornerRadius: 16, emphasis: 0.44)
     }
 
     private func selectionRow(for item: InventoryItemEntity) -> some View {
@@ -84,27 +77,72 @@ struct PurchaseOrderAddItemsView: View {
                     .foregroundStyle(isSelected ? Theme.accent : Theme.textTertiary)
             }
             .padding(16)
-            .background(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Theme.cardBackground.opacity(0.92))
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(Theme.subtleBorder, lineWidth: 1)
-            )
+            .inventoryCard(cornerRadius: 16, emphasis: isSelected ? 0.62 : 0.2)
         }
         .buttonStyle(.plain)
     }
 
     private var applyButton: some View {
         Button {
-            Haptics.success()
-            dismiss()
+            createDraftOrder()
         } label: {
             Text("Create Draft Order (\(selections.count) items)")
                 .frame(maxWidth: .infinity)
         }
         .buttonStyle(.borderedProminent)
-        .disabled(selections.isEmpty)
+        .disabled(selections.isEmpty || !authStore.canManagePurchasing)
+    }
+
+    private func createDraftOrder() {
+        guard authStore.canManagePurchasing else { return }
+        let selected = workspaceItems.filter { selections.contains($0.id) }
+        guard !selected.isEmpty else { return }
+
+        let lines = selected.map { item in
+            let preferredSupplier = item.normalizedPreferredSupplier
+            let supplierSKU = item.normalizedSupplierSKU
+            return PurchaseOrderLine(
+                itemID: item.id,
+                itemName: item.name,
+                category: item.category,
+                suggestedUnits: suggestedUnits(for: item),
+                reorderPoint: reorderPoint(for: item),
+                onHandUnits: item.totalUnitsOnHand,
+                leadTimeDays: item.leadTimeDays,
+                forecastDailyDemand: max(item.averageDailyUsage, item.movingAverageDailyDemand ?? 0),
+                preferredSupplier: preferredSupplier.isEmpty ? nil : preferredSupplier,
+                supplierSKU: supplierSKU.isEmpty ? nil : supplierSKU,
+                minimumOrderQuantity: item.minimumOrderQuantity > 0 ? item.minimumOrderQuantity : nil,
+                reorderCasePack: item.reorderCasePack > 0 ? item.reorderCasePack : nil,
+                leadTimeVarianceDays: item.leadTimeVarianceDays > 0 ? item.leadTimeVarianceDays : nil
+            )
+        }
+
+        _ = purchaseOrderStore.createDraftsGroupedBySupplier(
+            lines: lines,
+            workspaceID: authStore.activeWorkspaceID,
+            source: "manual selection",
+            notes: "Created from Add Items on \(Date().formatted(date: .abbreviated, time: .shortened))."
+        )
+        Haptics.success()
+        dismiss()
+    }
+
+    private var workspaceItems: [InventoryItemEntity] {
+        items.filter { $0.isInWorkspace(authStore.activeWorkspaceID) }
+    }
+
+    private func reorderPoint(for item: InventoryItemEntity) -> Int64 {
+        let demand = max(item.averageDailyUsage, item.movingAverageDailyDemand ?? 0)
+        let lead = max(0, Double(item.leadTimeDays))
+        guard demand > 0, lead > 0 else { return max(1, item.safetyStockUnits) }
+        let demandDuringLead = Int64((demand * lead).rounded(.up))
+        return max(1, demandDuringLead + max(0, item.safetyStockUnits))
+    }
+
+    private func suggestedUnits(for item: InventoryItemEntity) -> Int64 {
+        let reorder = reorderPoint(for: item)
+        let baseUnits = max(1, reorder - max(0, item.totalUnitsOnHand))
+        return item.adjustedSuggestedOrderUnits(from: baseUnits)
     }
 }

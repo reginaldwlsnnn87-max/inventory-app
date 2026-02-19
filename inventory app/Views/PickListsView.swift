@@ -47,14 +47,7 @@ struct PickListsView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Theme.cardBackground.opacity(0.92))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(Theme.subtleBorder, lineWidth: 1)
-        )
+        .inventoryCard(cornerRadius: 16, emphasis: 0.44)
     }
 
     private func listCard(_ list: PickList) -> some View {
@@ -69,23 +62,16 @@ struct PickListsView: View {
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
                     .background(
-                        Capsule().fill(Theme.accent.opacity(0.15))
+                        Capsule().fill(Theme.accentSoft.opacity(0.45))
                     )
-                    .foregroundStyle(Theme.accent)
+                    .foregroundStyle(Theme.accentDeep)
             }
             Text("\(list.itemCount) items")
                 .font(Theme.font(12, weight: .medium))
                 .foregroundStyle(Theme.textSecondary)
         }
         .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Theme.cardBackground.opacity(0.92))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(Theme.subtleBorder, lineWidth: 1)
-        )
+        .inventoryCard(cornerRadius: 16, emphasis: 0.26)
     }
 
     private func addList() {

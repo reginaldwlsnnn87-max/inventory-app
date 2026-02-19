@@ -1,0 +1,2 @@
+Target dependency graph (1 target)
+Target 'inventory app' in project 'inventory app' (no dependencies)

@@ -1,0 +1,469 @@
+{
+  "" : {
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/inventory app-primary.dia",
+    "emit-module-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/inventory app-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/inventory app-primary-emit-module.dia",
+    "pch" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/inventory app-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/inventory app-primary.swiftdeps"
+  },
+  "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/ContentView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Models/InventoryItemEntity.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryItemEntity.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryItemEntity.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryItemEntity.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryItemEntity.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryItemEntity.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryItemEntity.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryItemEntity.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryItemEntity~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Models/PurchaseOrderModels.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderModels.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderModels.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderModels.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderModels.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderModels.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderModels.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderModels.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderModels~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Store/AuthStore.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthStore.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthStore.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthStore.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthStore.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthStore.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthStore.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthStore.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthStore~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Store/AutomationStore.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationStore.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationStore.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationStore.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationStore.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationStore.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationStore.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationStore.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationStore~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Store/GuidanceStore.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceStore.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceStore.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceStore.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceStore.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceStore.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceStore.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceStore.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceStore~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Store/InventoryDataController.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryDataController.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryDataController.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryDataController.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryDataController.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryDataController.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryDataController.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryDataController.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryDataController~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Store/PlatformStore.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PlatformStore.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PlatformStore.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PlatformStore.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PlatformStore.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PlatformStore.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PlatformStore.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PlatformStore.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PlatformStore~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Store/PurchaseOrderStore.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderStore.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderStore.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderStore.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderStore.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderStore.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderStore.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderStore.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderStore~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/AmbientBackgroundView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AmbientBackgroundView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AmbientBackgroundView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AmbientBackgroundView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AmbientBackgroundView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AmbientBackgroundView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AmbientBackgroundView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AmbientBackgroundView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AmbientBackgroundView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/AuthGateView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthGateView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthGateView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthGateView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthGateView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthGateView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthGateView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthGateView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AuthGateView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/AutomationInboxView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationInboxView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationInboxView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationInboxView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationInboxView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationInboxView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationInboxView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationInboxView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/AutomationInboxView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/BarcodeScanView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/BarcodeScanView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/BarcodeScanView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/BarcodeScanView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/BarcodeScanView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/BarcodeScanView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/BarcodeScanView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/BarcodeScanView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/BarcodeScanView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/DailyOpsBriefView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/DailyOpsBriefView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/DailyOpsBriefView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/DailyOpsBriefView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/DailyOpsBriefView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/DailyOpsBriefView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/DailyOpsBriefView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/DailyOpsBriefView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/DailyOpsBriefView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/ExceptionFeedView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ExceptionFeedView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ExceptionFeedView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ExceptionFeedView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ExceptionFeedView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ExceptionFeedView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ExceptionFeedView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ExceptionFeedView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ExceptionFeedView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/FeaturesMenuView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/FeaturesMenuView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/FeaturesMenuView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/FeaturesMenuView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/FeaturesMenuView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/FeaturesMenuView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/FeaturesMenuView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/FeaturesMenuView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/FeaturesMenuView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/GuidanceCenterView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceCenterView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceCenterView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceCenterView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceCenterView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceCenterView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceCenterView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceCenterView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/GuidanceCenterView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/Haptics.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Haptics.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Haptics.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Haptics.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Haptics.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Haptics.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Haptics.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Haptics.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Haptics~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/IntegrationHubView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/IntegrationHubView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/IntegrationHubView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/IntegrationHubView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/IntegrationHubView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/IntegrationHubView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/IntegrationHubView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/IntegrationHubView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/IntegrationHubView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/InventoryCalculationsView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryCalculationsView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryCalculationsView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryCalculationsView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryCalculationsView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryCalculationsView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryCalculationsView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryCalculationsView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/InventoryCalculationsView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/ItemFormView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemFormView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemFormView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemFormView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemFormView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemFormView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemFormView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemFormView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemFormView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/ItemSelectionView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemSelectionView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemSelectionView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemSelectionView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemSelectionView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemSelectionView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemSelectionView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemSelectionView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemSelectionView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/ItemsListView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemsListView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemsListView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemsListView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemsListView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemsListView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemsListView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemsListView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ItemsListView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/KPIDashboardView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/KPIDashboardView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/KPIDashboardView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/KPIDashboardView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/KPIDashboardView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/KPIDashboardView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/KPIDashboardView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/KPIDashboardView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/KPIDashboardView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/MenuView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/MenuView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/MenuView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/MenuView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/MenuView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/MenuView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/MenuView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/MenuView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/MenuView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/NotesEditView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/NotesEditView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/NotesEditView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/NotesEditView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/NotesEditView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/NotesEditView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/NotesEditView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/NotesEditView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/NotesEditView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/OpsIntelligenceView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/OpsIntelligenceView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/OpsIntelligenceView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/OpsIntelligenceView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/OpsIntelligenceView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/OpsIntelligenceView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/OpsIntelligenceView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/OpsIntelligenceView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/OpsIntelligenceView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/PickListsView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PickListsView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PickListsView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PickListsView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PickListsView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PickListsView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PickListsView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PickListsView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PickListsView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/ProcessWalkthroughView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ProcessWalkthroughView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ProcessWalkthroughView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ProcessWalkthroughView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ProcessWalkthroughView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ProcessWalkthroughView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ProcessWalkthroughView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ProcessWalkthroughView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ProcessWalkthroughView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/PurchaseOrderAddItemsView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderAddItemsView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderAddItemsView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderAddItemsView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderAddItemsView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderAddItemsView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderAddItemsView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderAddItemsView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderAddItemsView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/PurchaseOrderReceiveItemsView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderReceiveItemsView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderReceiveItemsView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderReceiveItemsView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderReceiveItemsView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderReceiveItemsView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderReceiveItemsView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderReceiveItemsView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrderReceiveItemsView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/PurchaseOrdersView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrdersView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrdersView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrdersView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrdersView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrdersView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrdersView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrdersView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/PurchaseOrdersView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/QuantityEditView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuantityEditView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuantityEditView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuantityEditView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuantityEditView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuantityEditView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuantityEditView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuantityEditView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuantityEditView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/QuickActionsView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickActionsView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickActionsView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickActionsView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickActionsView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickActionsView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickActionsView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickActionsView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickActionsView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/QuickAddView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickAddView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickAddView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickAddView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickAddView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickAddView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickAddView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickAddView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickAddView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/QuickStockAdjustView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickStockAdjustView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickStockAdjustView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickStockAdjustView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickStockAdjustView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickStockAdjustView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickStockAdjustView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickStockAdjustView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/QuickStockAdjustView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/ReplenishmentPlannerView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ReplenishmentPlannerView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ReplenishmentPlannerView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ReplenishmentPlannerView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ReplenishmentPlannerView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ReplenishmentPlannerView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ReplenishmentPlannerView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ReplenishmentPlannerView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ReplenishmentPlannerView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/StarterTemplatesView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StarterTemplatesView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StarterTemplatesView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StarterTemplatesView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StarterTemplatesView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StarterTemplatesView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StarterTemplatesView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StarterTemplatesView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StarterTemplatesView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/StockCountsView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StockCountsView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StockCountsView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StockCountsView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StockCountsView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StockCountsView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StockCountsView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StockCountsView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/StockCountsView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/Theme.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Theme.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Theme.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Theme.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Theme.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Theme.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Theme.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Theme.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/Theme~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/TrustCenterView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/TrustCenterView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/TrustCenterView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/TrustCenterView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/TrustCenterView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/TrustCenterView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/TrustCenterView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/TrustCenterView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/TrustCenterView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/VisualShelfScanView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/VisualShelfScanView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/VisualShelfScanView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/VisualShelfScanView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/VisualShelfScanView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/VisualShelfScanView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/VisualShelfScanView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/VisualShelfScanView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/VisualShelfScanView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/WorkflowsView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/WorkflowsView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/WorkflowsView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/WorkflowsView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/WorkflowsView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/WorkflowsView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/WorkflowsView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/WorkflowsView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/WorkflowsView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/Views/ZoneMissionView.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ZoneMissionView.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ZoneMissionView.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ZoneMissionView.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ZoneMissionView.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ZoneMissionView.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ZoneMissionView.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ZoneMissionView.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/ZoneMissionView~partial.swiftmodule"
+  },
+  "/Users/reggieboi/coding folder/inventory app/inventory app/inventory_appApp.swift" : {
+    "const-values" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/inventory_appApp.swiftconstvalues",
+    "dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/inventory_appApp.d",
+    "diagnostics" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/inventory_appApp.dia",
+    "index-unit-output-path" : "/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/inventory_appApp.o",
+    "llvm-bc" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/inventory_appApp.bc",
+    "object" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/inventory_appApp.o",
+    "swift-dependencies" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/inventory_appApp.swiftdeps",
+    "swiftmodule" : "/Users/reggieboi/coding folder/inventory app/build/inventory app.build/Debug-iphoneos/inventory app.build/Objects-normal/arm64/inventory_appApp~partial.swiftmodule"
+  }
+}

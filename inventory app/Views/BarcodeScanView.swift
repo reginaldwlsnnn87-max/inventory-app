@@ -62,14 +62,7 @@ struct BarcodeScanView: View {
                 .foregroundStyle(Theme.textSecondary)
         }
         .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(Theme.cardBackground.opacity(0.92))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .stroke(Theme.subtleBorder, lineWidth: 1)
-        )
+        .inventoryCard(cornerRadius: 18, emphasis: 0.42)
     }
 
     private var actionBar: some View {
@@ -101,14 +94,7 @@ struct BarcodeScanView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         }
         .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(Theme.cardBackground.opacity(0.92))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .stroke(Theme.subtleBorder, lineWidth: 1)
-        )
+        .inventoryCard(cornerRadius: 18, emphasis: 0.28)
     }
 
     private func handleScan(_ code: String) {

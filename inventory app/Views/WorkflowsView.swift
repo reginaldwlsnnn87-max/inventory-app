@@ -57,14 +57,7 @@ struct WorkflowsView: View {
             }
         }
         .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(Theme.cardBackground.opacity(0.92))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .stroke(Theme.subtleBorder, lineWidth: 1)
-        )
+        .inventoryCard(cornerRadius: 18, emphasis: card.badge == nil ? 0.24 : 0.52)
         .contentShape(Rectangle())
     }
 
@@ -104,9 +97,9 @@ struct WorkflowsView: View {
                             .padding(.horizontal, 8)
                             .padding(.vertical, 4)
                             .background(
-                                Capsule().fill(Color.red.opacity(0.85))
+                                Capsule().fill(Theme.accentSoft.opacity(0.58))
                             )
-                            .foregroundStyle(.white)
+                            .foregroundStyle(Theme.accentDeep)
                     }
                 }
                 Text(card.description)
@@ -151,9 +144,9 @@ struct WorkflowsView: View {
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
                     .background(
-                        Capsule().fill(Color.red.opacity(0.85))
+                        Capsule().fill(Theme.accentSoft.opacity(0.58))
                     )
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Theme.accentDeep)
             }
             Image(systemName: "chevron.right")
                 .font(.system(size: 12, weight: .semibold))
@@ -165,6 +158,28 @@ struct WorkflowsView: View {
     @ViewBuilder
     private func destinationView(_ destination: WorkflowDestination) -> some View {
         switch destination {
+        case .runShift:
+            RunShiftView()
+        case .dailyOpsBrief:
+            DailyOpsBriefView()
+        case .automationInbox:
+            AutomationInboxView()
+        case .integrationHub:
+            IntegrationHubView()
+        case .trustCenter:
+            TrustCenterView()
+        case .opsIntelligence:
+            OpsIntelligenceView()
+        case .zoneMission:
+            ZoneMissionView()
+        case .starterTemplates:
+            StarterTemplatesView()
+        case .kpiDashboard:
+            KPIDashboardView()
+        case .exceptions:
+            ExceptionFeedView()
+        case .replenishment:
+            ReplenishmentPlannerView()
         case .stockCounts:
             StockCountsView()
         case .pickLists:
@@ -175,6 +190,8 @@ struct WorkflowsView: View {
             PurchaseOrderAddItemsView()
         case .receiveItems:
             PurchaseOrderReceiveItemsView()
+        case .calculations:
+            InventoryCalculationsView()
         }
     }
 }
@@ -198,8 +215,104 @@ private struct WorkflowAction: Identifiable {
 
 private let workflowCards: [WorkflowCard] = [
     WorkflowCard(
+        title: "Run Shift",
+        description: "One-screen execution flow: count queue, exceptions, replenishment, done.",
+        systemImage: "play.circle.fill",
+        badge: "NEW",
+        actions: [],
+        destination: .runShift
+    ),
+    WorkflowCard(
+        title: "Automation Inbox",
+        description: "Autopilot task queue that generates count, replenishment, and shrink actions from live signals.",
+        systemImage: "tray.full",
+        badge: "NEW",
+        actions: [],
+        destination: .automationInbox
+    ),
+    WorkflowCard(
+        title: "Integration Hub",
+        description: "Run QuickBooks/Shopify sync jobs plus CSV import/export for real inventory data movement.",
+        systemImage: "arrow.triangle.2.circlepath",
+        badge: "NEW",
+        actions: [],
+        destination: .integrationHub
+    ),
+    WorkflowCard(
+        title: "Trust Center",
+        description: "Create backups, monitor audit history, and recover fast after import or count errors.",
+        systemImage: "checkmark.shield",
+        badge: "NEW",
+        actions: [],
+        destination: .trustCenter
+    ),
+    WorkflowCard(
+        title: "Ops Intelligence",
+        description: "Execute returns/adjustments and track owner-level impact on shrink and labor.",
+        systemImage: "waveform.path.ecg.rectangle",
+        badge: "NEW",
+        actions: [],
+        destination: .opsIntelligence
+    ),
+    WorkflowCard(
+        title: "Daily Ops Brief",
+        description: "Start each shift with an actionable queue built from real risk, stale counts, and data gaps.",
+        systemImage: "checklist.checked",
+        badge: "NEW",
+        actions: [],
+        destination: .dailyOpsBrief
+    ),
+    WorkflowCard(
+        title: "Zone Mission",
+        description: "Count one location at a time with a fast mission flow and automatic variance review.",
+        systemImage: "map.fill",
+        badge: "NEW",
+        actions: [],
+        destination: .zoneMission
+    ),
+    WorkflowCard(
+        title: "KPI Dashboard",
+        description: "Monitor stockout risk, days of cover, and dead stock from one operational dashboard.",
+        systemImage: "chart.bar.doc.horizontal",
+        badge: "NEW",
+        actions: [],
+        destination: .kpiDashboard
+    ),
+    WorkflowCard(
+        title: "Starter Templates",
+        description: "Pick a business type and instantly seed the workspace with practical starter SKUs.",
+        systemImage: "wand.and.sparkles",
+        badge: "NEW",
+        actions: [],
+        destination: .starterTemplates
+    ),
+    WorkflowCard(
+        title: "Exception Feed",
+        description: "Focus only on critical stock risks, stale counts, and missing data.",
+        systemImage: "exclamationmark.bubble",
+        badge: "NEW",
+        actions: [],
+        destination: .exceptions
+    ),
+    WorkflowCard(
+        title: "Replenishment Planner",
+        description: "Prioritize urgent SKUs, generate suggested order units, and copy a PO-ready plan.",
+        systemImage: "chart.line.uptrend.xyaxis",
+        badge: "NEW",
+        actions: [],
+        destination: .replenishment
+    ),
+    WorkflowCard(
+        title: "Calculations Lab",
+        description: "Learn reorder point, safety stock, EOQ, and turnover with live formulas.",
+        systemImage: "function",
+        badge: "NEW",
+        actions: [],
+        destination: .calculations
+    ),
+    WorkflowCard(
         title: "Stock Counts",
-        description: "Count and verify inventory to keep records accurate.",
+        description: "Run blind counts, auto-flag high variance, and require recount reason codes.",
         systemImage: "123.rectangle",
         badge: "NEW",
         actions: [],
@@ -227,9 +340,21 @@ private let workflowCards: [WorkflowCard] = [
 ]
 
 private enum WorkflowDestination {
+    case runShift
+    case automationInbox
+    case integrationHub
+    case trustCenter
+    case opsIntelligence
+    case dailyOpsBrief
+    case zoneMission
+    case kpiDashboard
+    case starterTemplates
+    case exceptions
+    case replenishment
     case stockCounts
     case pickLists
     case purchaseOrders
     case addItems
     case receiveItems
+    case calculations
 }

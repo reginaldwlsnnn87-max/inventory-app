@@ -21,6 +21,8 @@ struct ItemFormView: View {
 
     @Environment(\.managedObjectContext) private var context
     @EnvironmentObject private var dataController: InventoryDataController
+    @EnvironmentObject private var authStore: AuthStore
+    @EnvironmentObject private var guidanceStore: GuidanceStore
     @Environment(\.dismiss) private var dismiss
 
     @State private var name: String
@@ -39,6 +41,13 @@ struct ItemFormView: View {
     @State private var averageDailyUsage: Double
     @State private var leadTimeDays: Int
     @State private var safetyStockUnits: Int
+    @State private var preferredSupplier: String
+    @State private var supplierSKU: String
+    @State private var minimumOrderQuantity: Int
+    @State private var reorderCasePack: Int
+    @State private var leadTimeVarianceDays: Int
+    @State private var isShowingPermissionAlert = false
+    @State private var isShowingWalkthrough = false
 
     init(mode: Mode) {
         self.mode = mode
@@ -61,6 +70,11 @@ struct ItemFormView: View {
             _averageDailyUsage = State(initialValue: 0)
             _leadTimeDays = State(initialValue: 0)
             _safetyStockUnits = State(initialValue: 0)
+            _preferredSupplier = State(initialValue: "")
+            _supplierSKU = State(initialValue: "")
+            _minimumOrderQuantity = State(initialValue: 0)
+            _reorderCasePack = State(initialValue: 0)
+            _leadTimeVarianceDays = State(initialValue: 0)
         case .edit(let item):
             _name = State(initialValue: item.name)
             _quantity = State(initialValue: Int(item.quantity))
@@ -78,6 +92,11 @@ struct ItemFormView: View {
             _averageDailyUsage = State(initialValue: item.averageDailyUsage)
             _leadTimeDays = State(initialValue: Int(item.leadTimeDays))
             _safetyStockUnits = State(initialValue: Int(item.safetyStockUnits))
+            _preferredSupplier = State(initialValue: item.preferredSupplier)
+            _supplierSKU = State(initialValue: item.supplierSKU)
+            _minimumOrderQuantity = State(initialValue: Int(item.minimumOrderQuantity))
+            _reorderCasePack = State(initialValue: Int(item.reorderCasePack))
+            _leadTimeVarianceDays = State(initialValue: Int(item.leadTimeVarianceDays))
         }
     }
 
@@ -86,163 +105,87 @@ struct ItemFormView: View {
             ZStack {
                 AmbientBackgroundView()
 
-                Form {
-                    Section {
-                        TextField("Name", text: $name)
-                    } header: {
-                            Text("Item")
-                                .font(Theme.sectionFont())
-                    }
+                ScrollView {
+                    VStack(spacing: 16) {
+                        headerCard
 
-                    Section {
-                        TextField("Category", text: $category)
-                        TextField("Location", text: $location)
-                        TextField("Barcode", text: $barcode)
-                        Toggle("Liquid (Gallons)", isOn: $isLiquid)
-                        if !isLiquid {
-                            Stepper(value: $quantity, in: 0...1_000_000) {
-                                HStack {
-                                    Text("Cases")
-                                    Spacer()
-                                    Text("\(quantity)")
-                                        .foregroundStyle(.secondary)
-                                }
-                            }
-                            Stepper(value: $unitsPerCase, in: 0...1_000) {
-                                HStack {
-                                    Text("Units per Case")
-                                    Spacer()
-                                    Text("\(unitsPerCase)")
-                                        .foregroundStyle(.secondary)
-                                }
-                            }
-                            Stepper(value: $eachesPerUnit, in: 0...1_000) {
-                                HStack {
-                                    Text("Each per Unit")
-                                    Spacer()
-                                    Text("\(eachesPerUnit)")
-                                        .foregroundStyle(.secondary)
-                                }
-                            }
-                            Stepper(value: $units, in: 0...1_000_000) {
-                                HStack {
-                                    Text("Units")
-                                    Spacer()
-                                    Text("\(units)")
-                                        .foregroundStyle(.secondary)
-                                }
-                            }
-                            Stepper(value: $eaches, in: eachesRange) {
-                                HStack {
-                                    Text("Each")
-                                    Spacer()
-                                    Text("\(eaches)")
-                                        .foregroundStyle(.secondary)
-                                }
-                            }
-                        } else {
-                            Stepper(value: $units, in: 0...1_000_000) {
-                                HStack {
-                                    Text("Units (Gallons)")
-                                    Spacer()
-                                    Text("\(units)")
-                                        .foregroundStyle(.secondary)
-                                }
-                            }
-                            TextField("Partial Unit (e.g., 0.5, 1.25)", text: $gallonFractionText)
-                                .keyboardType(.decimalPad)
-                            HStack(spacing: 8) {
-                                Button("1/4") { gallonFractionText = "0.25" }
-                                Button("1/2") { gallonFractionText = "0.5" }
-                                Button("3/4") { gallonFractionText = "0.75" }
-                                Button("1/3") { gallonFractionText = "0.33" }
-                            }
-                            .font(.system(size: 12, weight: .semibold, design: .rounded))
-                            .buttonStyle(.bordered)
+                        sectionCard(title: "Item") {
+                            cardTextField("Name", text: $name)
+                            cardTextField("Category", text: $category)
+                            cardTextField("Location", text: $location)
+                            cardTextField("Barcode", text: $barcode)
                         }
-                    } header: {
-                        Text("Details")
-                            .font(Theme.sectionFont())
-                    }
 
-                    Section {
-                        Toggle("Pin Item", isOn: $isPinned)
-                    } header: {
-                        Text("Priority")
-                            .font(Theme.sectionFont())
-                    }
-
-                    Section {
-                        TextField(
-                            "Avg daily usage",
-                            value: $averageDailyUsage,
-                            format: .number.precision(.fractionLength(0...2))
-                        )
-                        #if os(iOS)
-                        .keyboardType(.decimalPad)
-                        #endif
-                        Stepper(value: $leadTimeDays, in: 0...365) {
-                            HStack {
-                                Text("Lead time (days)")
-                                Spacer()
-                                Text("\(leadTimeDays)")
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                        Stepper(value: $safetyStockUnits, in: 0...1_000_000) {
-                            HStack {
-                                Text("Safety stock (units)")
-                                Spacer()
-                                Text("\(safetyStockUnits)")
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                    } header: {
-                        Text("Reorder")
-                            .font(Theme.sectionFont())
-                    }
-
-                    Section {
-                        HStack {
-                            Text("Total Units")
-                                .font(.system(.subheadline, design: .rounded))
-                            Spacer()
-                            Text("\(totalUnitsPreview)")
-                                .font(.system(.subheadline, design: .rounded))
+                        sectionCard(title: "Counts") {
+                            Toggle("Liquid (Gallons)", isOn: $isLiquid)
+                                .font(Theme.font(14, weight: .semibold))
                                 .foregroundStyle(Theme.textPrimary)
-                        }
-                        HStack {
-                            Text("Total Eaches")
-                                .font(.system(.subheadline, design: .rounded))
-                            Spacer()
-                            Text("\(totalEachesPreview) each")
-                                .font(.system(.subheadline, design: .rounded))
-                                .foregroundStyle(Theme.textPrimary)
-                        }
-                        if isLiquid {
-                            HStack {
-                                Text("Total Gallons")
-                                    .font(.system(.subheadline, design: .rounded))
-                                Spacer()
-                                Text(formattedGallons(totalGallonsPreview))
-                                    .font(.system(.subheadline, design: .rounded))
-                                    .foregroundStyle(Theme.textPrimary)
+                                .tint(Theme.accent)
+
+                            if isLiquid {
+                                stepperField("Units (Gallons)", value: $units, range: 0...1_000_000)
+                                cardTextField(
+                                    "Partial unit (e.g. 0.5, 1.25)",
+                                    text: $gallonFractionText,
+                                    keyboard: .decimalPad
+                                )
+                                fractionButtons
+                            } else {
+                                stepperField("Cases", value: $quantity, range: 0...1_000_000)
+                                stepperField("Units per Case", value: $unitsPerCase, range: 0...1_000)
+                                stepperField("Each per Unit", value: $eachesPerUnit, range: 0...1_000)
+                                stepperField("Units", value: $units, range: 0...1_000_000)
+                                stepperField("Each", value: $eaches, range: eachesRange)
                             }
                         }
-                    } header: {
-                        Text("Preview")
-                            .font(Theme.sectionFont())
-                    }
 
-                    Section {
-                        TextField("Optional", text: $notes, axis: .vertical)
-                            .lineLimit(3...6)
-                    } header: {
-                        Text("Notes")
-                            .font(Theme.sectionFont())
+                        sectionCard(title: "Priority") {
+                            Toggle("Pin Item", isOn: $isPinned)
+                                .font(Theme.font(14, weight: .semibold))
+                                .foregroundStyle(Theme.textPrimary)
+                                .tint(Theme.accent)
+                        }
+
+                        sectionCard(title: "Reorder") {
+                            TextField(
+                                "Avg daily usage",
+                                value: $averageDailyUsage,
+                                format: .number.precision(.fractionLength(0...2))
+                            )
+                            #if os(iOS)
+                            .keyboardType(.decimalPad)
+                            #endif
+                            .inventoryTextInputField()
+
+                            stepperField("Lead time (days)", value: $leadTimeDays, range: 0...365)
+                            stepperField("Safety stock (units)", value: $safetyStockUnits, range: 0...1_000_000)
+                        }
+
+                        sectionCard(title: "Supplier Intelligence") {
+                            cardTextField("Preferred supplier", text: $preferredSupplier)
+                            cardTextField("Supplier SKU", text: $supplierSKU)
+                            stepperField("Minimum order quantity (MOQ)", value: $minimumOrderQuantity, range: 0...1_000_000)
+                            stepperField("Case pack increment", value: $reorderCasePack, range: 0...1_000_000)
+                            stepperField("Lead time variance (days)", value: $leadTimeVarianceDays, range: 0...90)
+                        }
+
+                        sectionCard(title: "Preview") {
+                            previewRow(title: "Total Units", value: "\(totalUnitsPreview)")
+                            previewRow(title: "Total Eaches", value: "\(totalEachesPreview) each")
+                            if isLiquid {
+                                previewRow(title: "Total Gallons", value: formattedGallons(totalGallonsPreview))
+                            }
+                        }
+
+                        sectionCard(title: "Notes") {
+                            TextField("", text: $notes, prompt: Theme.inputPrompt("Optional"), axis: .vertical)
+                                .lineLimit(3...6)
+                                .inventoryTextInputField()
+                        }
                     }
+                    .padding(16)
+                    .padding(.bottom, 96)
                 }
-                .scrollContentBackground(.hidden)
             }
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
@@ -252,13 +195,205 @@ struct ItemFormView: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
                 }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") { save() }
-                        .disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        isShowingWalkthrough = true
+                    } label: {
+                        Image(systemName: "questionmark.circle")
+                    }
+                    .accessibilityLabel("How to use Add Item")
                 }
             }
+            .safeAreaInset(edge: .bottom) {
+                saveBar
+            }
             .tint(Theme.accent)
+            .sheet(isPresented: $isShowingWalkthrough) {
+                ProcessWalkthroughView(
+                    flow: .addItem,
+                    showLaunchButton: false,
+                    onCompleted: {
+                        guidanceStore.markFlowCompleted(.addItem)
+                    }
+                )
+            }
+            .alert("Permission required", isPresented: $isShowingPermissionAlert) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text("Only owners and managers can create or edit item details.")
+            }
         }
+    }
+
+    private var headerCard: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: modeIcon)
+                .font(.system(size: 17, weight: .bold))
+                .foregroundStyle(Theme.accent)
+                .frame(width: 30, height: 30)
+                .background(
+                    Circle()
+                        .fill(Theme.accentSoft.opacity(0.34))
+                )
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(isAddMode ? "Create inventory item" : "Update inventory item")
+                    .font(Theme.font(15, weight: .semibold))
+                    .foregroundStyle(Theme.textPrimary)
+                Text("Use counts, reorder data, and notes to keep this item accurate.")
+                    .font(Theme.font(12, weight: .medium))
+                    .foregroundStyle(Theme.textSecondary)
+            }
+
+            Spacer(minLength: 0)
+        }
+        .padding(14)
+        .inventoryCard(cornerRadius: 16, emphasis: 0.62)
+    }
+
+    private var modeIcon: String {
+        switch mode {
+        case .add:
+            return "plus.circle.fill"
+        case .edit:
+            return "square.and.pencil"
+        }
+    }
+
+    private var isAddMode: Bool {
+        if case .add = mode {
+            return true
+        }
+        return false
+    }
+
+    private var fractionButtons: some View {
+        HStack(spacing: 8) {
+            fractionButton("1/4", value: "0.25")
+            fractionButton("1/2", value: "0.5")
+            fractionButton("3/4", value: "0.75")
+            fractionButton("1/3", value: "0.33")
+        }
+    }
+
+    private var saveBar: some View {
+        HStack {
+            Button(action: save) {
+                HStack(spacing: 8) {
+                    Image(systemName: "checkmark.circle.fill")
+                    Text("Save")
+                        .font(Theme.font(14, weight: .semibold))
+                }
+                .foregroundStyle(Color.white)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 13)
+                .background(
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .fill(
+                            LinearGradient(
+                                colors: [Theme.accent, Theme.accentDeep],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                )
+            }
+            .buttonStyle(.plain)
+            .disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !authStore.canManageCatalog)
+            .opacity((name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !authStore.canManageCatalog) ? 0.55 : 1)
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 10)
+        .padding(.bottom, 12)
+        .background(.ultraThinMaterial)
+    }
+
+    @ViewBuilder
+    private func sectionCard<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(title)
+                .font(Theme.sectionFont())
+                .foregroundStyle(Theme.textSecondary)
+                .padding(.horizontal, 2)
+
+            VStack(spacing: 10) {
+                content()
+            }
+            .padding(12)
+            .inventoryCard(cornerRadius: 14, emphasis: 0.24)
+        }
+        .padding(14)
+        .inventoryCard(cornerRadius: 16, emphasis: 0.44)
+    }
+
+    private func stepperField(_ title: String, value: Binding<Int>, range: ClosedRange<Int>) -> some View {
+        Stepper(value: value, in: range) {
+            HStack {
+                Text(title)
+                    .font(Theme.font(14, weight: .semibold))
+                    .foregroundStyle(Theme.textPrimary)
+                Spacer()
+                Text("\(value.wrappedValue)")
+                    .font(Theme.font(13, weight: .semibold))
+                    .foregroundStyle(Theme.textSecondary)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 11)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(Theme.cardBackground.opacity(0.95))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .stroke(Theme.subtleBorder, lineWidth: 1)
+            )
+        }
+    }
+
+    private func previewRow(title: String, value: String) -> some View {
+        HStack {
+            Text(title)
+                .font(Theme.font(13, weight: .semibold))
+                .foregroundStyle(Theme.textSecondary)
+            Spacer()
+            Text(value)
+                .font(Theme.font(13, weight: .semibold))
+                .foregroundStyle(Theme.textPrimary)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 11)
+        .background(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(Theme.cardBackground.opacity(0.95))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .stroke(Theme.subtleBorder, lineWidth: 1)
+        )
+    }
+
+    private func fractionButton(_ title: String, value: String) -> some View {
+        Button(title) {
+            gallonFractionText = value
+        }
+        .font(Theme.font(12, weight: .semibold))
+        .foregroundStyle(Theme.accentDeep)
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(Theme.pillGradient())
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .stroke(Theme.subtleBorder, lineWidth: 1)
+        )
+    }
+
+    private func cardTextField(_ title: String, text: Binding<String>, keyboard: UIKeyboardType = .default) -> some View {
+        TextField("", text: text, prompt: Theme.inputPrompt(title))
+            .keyboardType(keyboard)
+            .inventoryTextInputField()
     }
 
     private var title: String {
@@ -271,6 +406,11 @@ struct ItemFormView: View {
     }
 
     private func save() {
+        guard authStore.canManageCatalog else {
+            isShowingPermissionAlert = true
+            Haptics.tap()
+            return
+        }
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else { return }
 
@@ -289,6 +429,11 @@ struct ItemFormView: View {
         let clampedDailyUsage = max(0, averageDailyUsage)
         let clampedLeadTimeDays = max(0, leadTimeDays)
         let clampedSafetyStock = max(0, safetyStockUnits)
+        let normalizedPreferredSupplier = preferredSupplier.trimmingCharacters(in: .whitespacesAndNewlines)
+        let normalizedSupplierSKU = supplierSKU.trimmingCharacters(in: .whitespacesAndNewlines)
+        let clampedMOQ = max(0, minimumOrderQuantity)
+        let clampedCasePack = max(0, reorderCasePack)
+        let clampedLeadTimeVariance = max(0, leadTimeVarianceDays)
 
         switch mode {
         case .add:
@@ -310,6 +455,13 @@ struct ItemFormView: View {
             item.averageDailyUsage = clampedDailyUsage
             item.leadTimeDays = Int64(clampedLeadTimeDays)
             item.safetyStockUnits = Int64(clampedSafetyStock)
+            item.preferredSupplier = normalizedPreferredSupplier
+            item.supplierSKU = normalizedSupplierSKU
+            item.minimumOrderQuantity = Int64(clampedMOQ)
+            item.reorderCasePack = Int64(clampedCasePack)
+            item.leadTimeVarianceDays = Int64(clampedLeadTimeVariance)
+            item.workspaceID = authStore.activeWorkspaceIDString()
+            item.recentDemandSamples = ""
             item.createdAt = Date()
             item.updatedAt = Date()
         case .edit(let item):
@@ -329,6 +481,12 @@ struct ItemFormView: View {
             item.averageDailyUsage = clampedDailyUsage
             item.leadTimeDays = Int64(clampedLeadTimeDays)
             item.safetyStockUnits = Int64(clampedSafetyStock)
+            item.preferredSupplier = normalizedPreferredSupplier
+            item.supplierSKU = normalizedSupplierSKU
+            item.minimumOrderQuantity = Int64(clampedMOQ)
+            item.reorderCasePack = Int64(clampedCasePack)
+            item.leadTimeVarianceDays = Int64(clampedLeadTimeVariance)
+            item.assignWorkspaceIfNeeded(authStore.activeWorkspaceID)
             item.updatedAt = Date()
         }
 
@@ -344,13 +502,16 @@ struct ItemFormView: View {
         return 0...1_000
     }
 
+    private var nonLiquidBaseUnitsPreview: Int {
+        if unitsPerCase > 0 {
+            return quantity * unitsPerCase + units
+        }
+        return quantity + units
+    }
+
     private var totalUnitsPreview: Int {
-        let baseUnits = quantity * unitsPerCase + units
-        guard isLiquid else { return baseUnits }
-        let eachesFraction = eachesPerUnit > 0 ? Double(eaches) / Double(eachesPerUnit) : 0
-        let extraGallons = Double(gallonFractionText) ?? 0
-        let totalGallons = Double(baseUnits) + eachesFraction + extraGallons
-        return Int((totalGallons * 128).rounded())
+        guard isLiquid else { return nonLiquidBaseUnitsPreview }
+        return Int((totalGallonsPreview * 128).rounded())
     }
 
     private var totalEachesPreview: Int {
@@ -358,7 +519,7 @@ struct ItemFormView: View {
             let gallons = totalGallonsPreview
             return Int((gallons * 128).rounded())
         }
-        return (quantity * unitsPerCase + units) * eachesPerUnit + eaches
+        return nonLiquidBaseUnitsPreview * eachesPerUnit + eaches
     }
 
     private var totalGallonsPreview: Double {
@@ -366,7 +527,7 @@ struct ItemFormView: View {
         if isLiquid {
             return Double(units) + extraGallons
         }
-        let baseUnits = Double(quantity * unitsPerCase + units)
+        let baseUnits = Double(nonLiquidBaseUnitsPreview)
         let eachesFraction = eachesPerUnit > 0 ? Double(eaches) / Double(eachesPerUnit) : 0
         return baseUnits + eachesFraction + extraGallons
     }

@@ -3,12 +3,18 @@ import CoreData
 
 struct QuickStockAdjustView: View {
     @EnvironmentObject private var dataController: InventoryDataController
+    @EnvironmentObject private var authStore: AuthStore
+    @EnvironmentObject private var platformStore: PlatformStore
     @Environment(\.dismiss) private var dismiss
 
     let item: InventoryItemEntity
 
     @State private var mode: AdjustMode = .stockIn
     @State private var amount: Double = 1
+    @State private var reasonCode: InventoryAdjustmentReasonCode = .countCorrection
+    @State private var reasonDetail = ""
+    @State private var needsHighRiskConfirmation = false
+    @State private var message: String?
 
     var body: some View {
         NavigationStack {
@@ -19,6 +25,7 @@ struct QuickStockAdjustView: View {
                     headerCard
                     modePicker
                     amountCard
+                    reasonCard
                     applyButton
                 }
                 .padding(16)
@@ -33,6 +40,28 @@ struct QuickStockAdjustView: View {
                 }
             }
             .tint(Theme.accent)
+            .confirmationDialog(
+                "Confirm high-risk adjustment?",
+                isPresented: $needsHighRiskConfirmation,
+                titleVisibility: .visible
+            ) {
+                Button("Apply Adjustment", role: .destructive) {
+                    applyAdjustment(highRiskConfirmed: true)
+                }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("This change exceeds the high-risk threshold (\(platformStore.highRiskAdjustmentThresholdUnits) units).")
+            }
+            .alert("Stock Adjustment", isPresented: .init(
+                get: { message != nil },
+                set: { if !$0 { message = nil } }
+            )) {
+                Button("OK", role: .cancel) {
+                    message = nil
+                }
+            } message: {
+                Text(message ?? "")
+            }
         }
         .onAppear {
             amount = item.isLiquid ? 0.5 : 1
@@ -50,14 +79,7 @@ struct QuickStockAdjustView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Theme.cardBackground.opacity(0.92))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(Theme.subtleBorder, lineWidth: 1)
-        )
+        .inventoryCard(cornerRadius: 16, emphasis: 0.52)
     }
 
     private var modePicker: some View {
@@ -84,7 +106,7 @@ struct QuickStockAdjustView: View {
                 #if os(iOS)
                 .keyboardType(.decimalPad)
                 #endif
-                .textFieldStyle(.roundedBorder)
+                .inventoryTextInputField()
             } else {
                 Stepper(value: unitsBinding, in: 1...10_000) {
                     HStack {
@@ -97,19 +119,12 @@ struct QuickStockAdjustView: View {
             }
         }
         .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Theme.cardBackground.opacity(0.92))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(Theme.subtleBorder, lineWidth: 1)
-        )
+        .inventoryCard(cornerRadius: 16, emphasis: 0.26)
     }
 
     private var applyButton: some View {
         Button {
-            applyAdjustment()
+            handleApplyTapped()
         } label: {
             Text(mode == .stockIn ? "Apply Stock In" : "Apply Stock Out")
                 .frame(maxWidth: .infinity)
@@ -117,21 +132,33 @@ struct QuickStockAdjustView: View {
         .buttonStyle(.borderedProminent)
     }
 
-    private var onHandUnits: Int64 {
-        if item.isLiquid {
-            let gallons = Double(item.looseUnits) + item.gallonFraction
-            return Int64((gallons * 128).rounded())
+    private var reasonCard: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Reason Code")
+                .font(Theme.sectionFont())
+                .foregroundStyle(Theme.textSecondary)
+
+            Picker("Reason", selection: $reasonCode) {
+                ForEach(InventoryAdjustmentReasonCode.allCases) { code in
+                    Text(code.rawValue).tag(code)
+                }
+            }
+            .pickerStyle(.menu)
+
+            TextField("", text: $reasonDetail, prompt: Theme.inputPrompt("Details (optional)"))
+                .inventoryTextInputField(horizontalPadding: 10, verticalPadding: 10)
         }
-        let units = item.unitsPerCase > 0
-            ? item.quantity * item.unitsPerCase + item.looseUnits
-            : item.quantity
-        return units
+        .padding(16)
+        .inventoryCard(cornerRadius: 16, emphasis: 0.26)
+    }
+
+    private var onHandUnits: Int64 {
+        item.totalUnitsOnHand
     }
 
     private var onHandLabel: String {
         if item.isLiquid {
-            let gallons = Double(item.looseUnits) + item.gallonFraction
-            return "On hand \(formattedGallons(gallons)) gallons"
+            return "On hand \(formattedGallons(item.totalGallonsOnHand)) gallons"
         }
         return "On hand \(onHandUnits) units"
     }
@@ -143,31 +170,82 @@ struct QuickStockAdjustView: View {
         )
     }
 
-    private func applyAdjustment() {
-        let delta = mode == .stockIn ? amount : -amount
+    private func handleApplyTapped() {
+        guard amount > 0 else {
+            message = "Enter an amount greater than zero."
+            return
+        }
+        if platformStore.isHighRiskAdjustment(deltaUnits: proposedDeltaUnits) {
+            needsHighRiskConfirmation = true
+            return
+        }
+        applyAdjustment(highRiskConfirmed: false)
+    }
+
+    private var proposedDeltaUnits: Int64 {
+        let signedAmount = mode == .stockIn ? amount : -amount
         if item.isLiquid {
-            let currentGallons = Double(item.looseUnits) + item.gallonFraction
-            let updated = max(0, currentGallons + delta)
-            let whole = floor(updated)
-            let fraction = updated - whole
-            item.looseUnits = Int64(whole)
-            item.gallonFraction = fraction
+            return Int64(signedAmount.rounded())
+        }
+        let roundedMagnitude = Int64(max(1, abs(signedAmount).rounded()))
+        return signedAmount >= 0 ? roundedMagnitude : -roundedMagnitude
+    }
+
+    private func applyAdjustment(highRiskConfirmed: Bool) {
+        let previousUnits = item.totalUnitsOnHand
+        let delta = mode == .stockIn ? amount : -amount
+        let reason = platformStore.adjustmentReasonSummary(reasonCode: reasonCode, detail: reasonDetail)
+        if item.isLiquid {
+            _ = platformStore.createGuardBackupIfNeeded(
+                reason: "Manual adjustment",
+                from: allItemsForBackup(),
+                workspaceID: authStore.activeWorkspaceID,
+                actorName: authStore.displayName,
+                cooldownMinutes: 90
+            )
+            item.applyTotalGallons(item.totalGallonsOnHand + delta)
+            item.assignWorkspaceIfNeeded(authStore.activeWorkspaceID)
+            item.updatedAt = Date()
+            dataController.save()
+            let deltaUnits = item.totalUnitsOnHand - previousUnits
+            guard deltaUnits != 0 else {
+                message = "No net adjustment was applied."
+                return
+            }
+            platformStore.recordInventoryMovement(
+                item: item,
+                deltaUnits: deltaUnits,
+                actorName: authStore.displayName,
+                workspaceID: authStore.activeWorkspaceID,
+                type: .adjustment,
+                source: "quick-stock-adjust",
+                reason: reason
+            )
         } else {
-            let currentUnits = Double(onHandUnits)
-            let updatedUnits = max(0, currentUnits + delta)
-            let totalUnits = Int64(updatedUnits.rounded())
-            if item.unitsPerCase > 0 {
-                item.quantity = totalUnits / item.unitsPerCase
-                item.looseUnits = totalUnits % item.unitsPerCase
-            } else {
-                item.quantity = totalUnits
-                item.looseUnits = 0
+            let roundedMagnitude = Int64(max(1, abs(delta).rounded()))
+            let roundedDelta = delta >= 0 ? roundedMagnitude : -roundedMagnitude
+            let didApply = platformStore.applyAdjustment(
+                item: item,
+                deltaUnits: roundedDelta,
+                reasonCode: reasonCode,
+                reasonDetail: reasonDetail,
+                highRiskConfirmed: highRiskConfirmed,
+                actorName: authStore.displayName,
+                workspaceID: authStore.activeWorkspaceID,
+                dataController: dataController
+            )
+            guard didApply else {
+                message = "High-risk adjustment confirmation is required."
+                return
             }
         }
-        item.updatedAt = Date()
-        dataController.save()
         Haptics.success()
         dismiss()
+    }
+
+    private func allItemsForBackup() -> [InventoryItemEntity] {
+        let request: NSFetchRequest<InventoryItemEntity> = InventoryItemEntity.fetchRequest()
+        return (try? dataController.container.viewContext.fetch(request)) ?? []
     }
 
     private func formattedGallons(_ value: Double) -> String {

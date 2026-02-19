@@ -4,6 +4,7 @@ import Combine
 
 final class InventoryDataController: ObservableObject {
     let container: NSPersistentContainer
+    @Published private(set) var storageErrorMessage: String?
 
     init() {
         let model = Self.makeModel()
@@ -12,7 +13,12 @@ final class InventoryDataController: ObservableObject {
             description.setOption(true as NSNumber, forKey: NSMigratePersistentStoresAutomaticallyOption)
             description.setOption(true as NSNumber, forKey: NSInferMappingModelAutomaticallyOption)
         }
-        container.loadPersistentStores { _, _ in }
+        container.loadPersistentStores { [weak self] _, error in
+            guard let error else { return }
+            DispatchQueue.main.async {
+                self?.storageErrorMessage = "Storage unavailable. Restart the app and verify local disk access. (\(error.localizedDescription))"
+            }
+        }
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
@@ -22,9 +28,28 @@ final class InventoryDataController: ObservableObject {
         guard context.hasChanges else { return }
         do {
             try context.save()
+            storageErrorMessage = nil
         } catch {
             context.rollback()
+            storageErrorMessage = "Could not save inventory changes. Your last edit was not written. (\(error.localizedDescription))"
         }
+    }
+
+    func deleteAllItems() {
+        let context = container.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "InventoryItemEntity")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            _ = try context.execute(deleteRequest)
+            storageErrorMessage = nil
+        } catch {
+            storageErrorMessage = "Could not clear inventory items. (\(error.localizedDescription))"
+        }
+        context.reset()
+    }
+
+    func clearStorageError() {
+        storageErrorMessage = nil
     }
 
     private static func makeModel() -> NSManagedObjectModel {
@@ -50,6 +75,13 @@ final class InventoryDataController: ObservableObject {
         let averageDailyUsage = attribute(name: "averageDailyUsage", type: .doubleAttributeType, optional: false, defaultValue: 0.0)
         let leadTimeDays = attribute(name: "leadTimeDays", type: .integer64AttributeType, optional: false, defaultValue: 0)
         let safetyStockUnits = attribute(name: "safetyStockUnits", type: .integer64AttributeType, optional: false, defaultValue: 0)
+        let preferredSupplier = attribute(name: "preferredSupplier", type: .stringAttributeType, optional: false, defaultValue: "")
+        let supplierSKU = attribute(name: "supplierSKU", type: .stringAttributeType, optional: false, defaultValue: "")
+        let minimumOrderQuantity = attribute(name: "minimumOrderQuantity", type: .integer64AttributeType, optional: false, defaultValue: 0)
+        let reorderCasePack = attribute(name: "reorderCasePack", type: .integer64AttributeType, optional: false, defaultValue: 0)
+        let leadTimeVarianceDays = attribute(name: "leadTimeVarianceDays", type: .integer64AttributeType, optional: false, defaultValue: 0)
+        let workspaceID = attribute(name: "workspaceID", type: .stringAttributeType, optional: false, defaultValue: "")
+        let recentDemandSamples = attribute(name: "recentDemandSamples", type: .stringAttributeType, optional: false, defaultValue: "")
         let createdAt = attribute(name: "createdAt", type: .dateAttributeType, optional: false)
         let updatedAt = attribute(name: "updatedAt", type: .dateAttributeType, optional: false)
 
@@ -71,6 +103,13 @@ final class InventoryDataController: ObservableObject {
             averageDailyUsage,
             leadTimeDays,
             safetyStockUnits,
+            preferredSupplier,
+            supplierSKU,
+            minimumOrderQuantity,
+            reorderCasePack,
+            leadTimeVarianceDays,
+            workspaceID,
+            recentDemandSamples,
             createdAt,
             updatedAt
         ]

@@ -1,7 +1,7 @@
 import SwiftUI
 import CoreData
 import UIKit
-import Vision
+@preconcurrency import Vision
 
 private struct ShelfScanTag: Identifiable {
     let id = UUID()
@@ -11,9 +11,22 @@ private struct ShelfScanTag: Identifiable {
     var position: CGPoint?
 }
 
+private struct ShelfDetectionCandidate: Sendable {
+    let id: UUID
+    let itemName: String
+    let initialCount: Double
+}
+
+private struct ShelfDetectionMatch: Sendable {
+    let itemID: UUID
+    let position: CGPoint?
+    let initialCount: Double
+}
+
 struct VisualShelfScanView: View {
-    @Environment(\.managedObjectContext) private var context
     @EnvironmentObject private var dataController: InventoryDataController
+    @EnvironmentObject private var authStore: AuthStore
+    @EnvironmentObject private var platformStore: PlatformStore
     @Environment(\.dismiss) private var dismiss
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \InventoryItemEntity.name, ascending: true)],
@@ -76,7 +89,7 @@ struct VisualShelfScanView: View {
                     .ignoresSafeArea()
             }
             .sheet(isPresented: $isPresentingTagPicker) {
-                ItemSelectionView(title: "Tag Item", items: Array(items)) { item in
+                ItemSelectionView(title: "Tag Item", items: workspaceItems) { item in
                     addTag(for: item, position: pendingTagPosition)
                     pendingTagPosition = nil
                 }
@@ -106,14 +119,7 @@ struct VisualShelfScanView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(14)
-        .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Theme.cardBackground.opacity(0.9))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(Theme.subtleBorder, lineWidth: 1)
-        )
+        .inventoryCard(cornerRadius: 16, emphasis: 0.48)
     }
 
     private var captureCard: some View {
@@ -152,14 +158,7 @@ struct VisualShelfScanView: View {
             }
         }
         .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(Theme.cardBackground.opacity(0.92))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .stroke(Theme.subtleBorder, lineWidth: 1)
-        )
+        .inventoryCard(cornerRadius: 18, emphasis: 0.45)
     }
 
     private var reviewCard: some View {
@@ -211,14 +210,7 @@ struct VisualShelfScanView: View {
             }
         }
         .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(Theme.cardBackground.opacity(0.92))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .stroke(Theme.subtleBorder, lineWidth: 1)
-        )
+        .inventoryCard(cornerRadius: 18, emphasis: isAutoDetectEnabled ? 0.6 : 0.3)
     }
 
     private var suggestionsCard: some View {
@@ -252,14 +244,7 @@ struct VisualShelfScanView: View {
             }
         }
         .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(Theme.cardBackground.opacity(0.92))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .stroke(Theme.subtleBorder, lineWidth: 1)
-        )
+        .inventoryCard(cornerRadius: 18, emphasis: 0.24)
     }
 
     private var taggedItemsCard: some View {
@@ -294,14 +279,7 @@ struct VisualShelfScanView: View {
             }
         }
         .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(Theme.cardBackground.opacity(0.92))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .stroke(Theme.subtleBorder, lineWidth: 1)
-        )
+        .inventoryCard(cornerRadius: 18, emphasis: 0.3)
     }
 
     private var applyButton: some View {
@@ -378,7 +356,7 @@ struct VisualShelfScanView: View {
 
     private var suggestedItems: [InventoryItemEntity] {
         let existing = Set(tags.map { $0.item.id })
-        return items
+        return workspaceItems
             .filter { !existing.contains($0.id) }
             .prefix(4)
             .map { $0 }
@@ -401,7 +379,7 @@ struct VisualShelfScanView: View {
 
     private func seedSuggestionsIfNeeded() {
         guard tags.isEmpty else { return }
-        let suggestions = items.prefix(3)
+        let suggestions = workspaceItems.prefix(3)
         for item in suggestions {
             addTag(for: item, position: nil)
         }
@@ -411,11 +389,18 @@ struct VisualShelfScanView: View {
         guard let image = capturedImage, !isDetecting else { return }
         isDetecting = true
         detectionStatus = "Scanning shelf labels..."
+        let candidates = workspaceItems.map { item in
+            ShelfDetectionCandidate(
+                id: item.id,
+                itemName: item.name,
+                initialCount: defaultCount(for: item)
+            )
+        }
 
         Task.detached(priority: .userInitiated) {
-            let detected = await detectItems(in: image, items: Array(items))
+            let detected = await detectItems(in: image, items: candidates)
             await MainActor.run {
-                mergeDetectedTags(detected)
+                mergeDetectedTags(detected, availableItems: workspaceItems)
                 lastDetectionAt = Date()
                 isDetecting = false
                 detectionStatus = detected.isEmpty ? "No readable labels found. Try a closer shot." : "Detection ready. Tap to confirm."
@@ -423,34 +408,40 @@ struct VisualShelfScanView: View {
         }
     }
 
-    private func mergeDetectedTags(_ detected: [ShelfScanTag]) {
+    private func mergeDetectedTags(_ detected: [ShelfDetectionMatch], availableItems: [InventoryItemEntity]) {
         guard !detected.isEmpty else { return }
         var existing = Dictionary(uniqueKeysWithValues: tags.map { ($0.item.id, $0) })
-        for tag in detected {
-            if var current = existing[tag.item.id] {
+        let itemByID = Dictionary(uniqueKeysWithValues: availableItems.map { ($0.id, $0) })
+        for detection in detected {
+            guard let item = itemByID[detection.itemID] else { continue }
+            if var current = existing[item.id] {
                 if current.position == nil {
-                    current.position = tag.position
+                    current.position = detection.position
                 }
-                existing[tag.item.id] = current
+                existing[item.id] = current
             } else {
-                existing[tag.item.id] = tag
+                existing[item.id] = ShelfScanTag(
+                    item: item,
+                    count: detection.initialCount,
+                    isConfirmed: false,
+                    position: detection.position
+                )
             }
         }
         tags = Array(existing.values)
     }
 
-    private func detectItems(in image: UIImage, items: [InventoryItemEntity]) async -> [ShelfScanTag] {
+    private func detectItems(in image: UIImage, items: [ShelfDetectionCandidate]) async -> [ShelfDetectionMatch] {
         guard let cgImage = image.cgImage else { return [] }
-        let request = VNRecognizeTextRequest()
-        request.recognitionLevel = .accurate
-        request.usesLanguageCorrection = true
-
-        let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
         return await withCheckedContinuation { continuation in
             DispatchQueue.global(qos: .userInitiated).async {
                 do {
+                    let request = VNRecognizeTextRequest()
+                    request.recognitionLevel = .accurate
+                    request.usesLanguageCorrection = true
+                    let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
                     try handler.perform([request])
-                    let observations = request.results as? [VNRecognizedTextObservation] ?? []
+                    let observations = request.results ?? []
                     let matches = matchItems(items, observations: observations)
                     continuation.resume(returning: matches)
                 } catch {
@@ -461,9 +452,9 @@ struct VisualShelfScanView: View {
     }
 
     private func matchItems(
-        _ items: [InventoryItemEntity],
+        _ items: [ShelfDetectionCandidate],
         observations: [VNRecognizedTextObservation]
-    ) -> [ShelfScanTag] {
+    ) -> [ShelfDetectionMatch] {
         guard !observations.isEmpty else { return [] }
         let recognized: [(text: String, position: CGPoint)] = observations.compactMap { observation in
             guard let candidate = observation.topCandidates(1).first else { return nil }
@@ -476,7 +467,7 @@ struct VisualShelfScanView: View {
 
         var bestByItem: [UUID: (score: Int, position: CGPoint?)] = [:]
         for item in items {
-            let itemName = item.name
+            let itemName = item.itemName
             for entry in recognized {
                 let score = matchScore(itemName: itemName, text: entry.text)
                 guard score > 0 else { continue }
@@ -487,9 +478,11 @@ struct VisualShelfScanView: View {
             }
         }
 
+        let candidatesByID = Dictionary(uniqueKeysWithValues: items.map { ($0.id, $0) })
+
         let ranked = bestByItem
-            .map { entry -> (InventoryItemEntity, Int, CGPoint?)? in
-                guard let item = items.first(where: { $0.id == entry.key }) else { return nil }
+            .map { entry -> (ShelfDetectionCandidate, Int, CGPoint?)? in
+                guard let item = candidatesByID[entry.key] else { return nil }
                 return (item, entry.value.score, entry.value.position)
             }
             .compactMap { $0 }
@@ -497,11 +490,10 @@ struct VisualShelfScanView: View {
             .prefix(6)
 
         return ranked.map { item, _, position in
-            ShelfScanTag(
-                item: item,
-                count: defaultCount(for: item),
-                isConfirmed: false,
-                position: position
+            ShelfDetectionMatch(
+                itemID: item.id,
+                position: position,
+                initialCount: item.initialCount
             )
         }
     }
@@ -531,12 +523,9 @@ struct VisualShelfScanView: View {
 
     private func defaultCount(for item: InventoryItemEntity) -> Double {
         if item.isLiquid {
-            return max(0, Double(item.looseUnits) + item.gallonFraction)
+            return item.totalGallonsOnHand
         }
-        let totalUnits = item.unitsPerCase > 0
-            ? Double(item.quantity * item.unitsPerCase + item.looseUnits)
-            : Double(item.quantity)
-        return max(0, totalUnits)
+        return Double(item.totalUnitsOnHand)
     }
 
     private func normalizedPoint(_ location: CGPoint, in size: CGSize) -> CGPoint {
@@ -550,24 +539,25 @@ struct VisualShelfScanView: View {
         let now = Date()
         for tag in tags {
             let item = tag.item
+            let previousUnits = item.totalUnitsOnHand
             if item.isLiquid {
-                let totalGallons = max(0, tag.count)
-                let whole = floor(totalGallons)
-                let fraction = totalGallons - whole
-                item.looseUnits = Int64(whole)
-                item.gallonFraction = fraction
+                item.applyTotalGallons(tag.count)
             } else {
-                let totalUnits = Int64(max(0, tag.count.rounded()))
-                if item.unitsPerCase > 0 {
-                    item.quantity = totalUnits / item.unitsPerCase
-                    item.looseUnits = totalUnits % item.unitsPerCase
-                } else {
-                    item.quantity = totalUnits
-                    item.looseUnits = 0
-                }
-                item.looseEaches = 0
+                item.applyTotalNonLiquidUnits(
+                    Int64(max(0, tag.count.rounded())),
+                    resetLooseEaches: true
+                )
             }
             item.updatedAt = now
+            platformStore.recordCountCorrection(
+                item: item,
+                previousUnits: previousUnits,
+                newUnits: item.totalUnitsOnHand,
+                actorName: authStore.displayName,
+                workspaceID: authStore.activeWorkspaceID,
+                source: "visual-shelf-scan",
+                reason: "Shelf scan count applied"
+            )
         }
         dataController.save()
         if let image = capturedImage {
@@ -593,6 +583,10 @@ struct VisualShelfScanView: View {
         let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
         return (directory ?? URL(fileURLWithPath: NSTemporaryDirectory()))
             .appendingPathComponent("last_shelf_scan.jpg")
+    }
+
+    private var workspaceItems: [InventoryItemEntity] {
+        items.filter { $0.isInWorkspace(authStore.activeWorkspaceID) }
     }
 }
 
@@ -634,7 +628,7 @@ private struct ShelfScanTagRow: View {
                 #if os(iOS)
                 .keyboardType(.decimalPad)
                 #endif
-                .textFieldStyle(.roundedBorder)
+                .inventoryTextInputField()
             } else {
                 Stepper(value: unitBinding, in: 0...1_000_000) {
                     HStack {
@@ -647,14 +641,7 @@ private struct ShelfScanTagRow: View {
             }
         }
         .padding(12)
-        .background(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Theme.cardBackground.opacity(0.9))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .stroke(Theme.subtleBorder, lineWidth: 1)
-        )
+        .inventoryCard(cornerRadius: 12, emphasis: tag.isConfirmed ? 0.44 : 0.16)
     }
 
     private var unitBinding: Binding<Int> {

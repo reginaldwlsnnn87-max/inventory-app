@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A1B2C3D42F10000100AA0011 /* PulseRemoteWidgets.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F10000100AA0001 /* PulseRemoteWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F1A7C1F92D8843B100A1B001 /* AppIntents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A7C1F92D8843B100A1B002 /* AppIntents.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		3AA5FC5C2F1BB26700455AF0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,18 +26,56 @@
 			remoteGlobalIDString = 3AA5FC4D2F1BB26600455AF0;
 			remoteInfo = "inventory app";
 		};
+		A1B2C3D42F10000100AA0013 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3AA5FC462F1BB26600455AF0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1B2C3D42F10000100AA0006;
+			remoteInfo = PulseRemoteWidgets;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A1B2C3D42F10000100AA0010 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A1B2C3D42F10000100AA0011 /* PulseRemoteWidgets.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3AA5FC4E2F1BB26600455AF0 /* inventory app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "inventory app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA5FC5B2F1BB26700455AF0 /* inventory appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "inventory appTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA5FC652F1BB26700455AF0 /* inventory appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "inventory appUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1B2C3D42F10000100AA0001 /* PulseRemoteWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PulseRemoteWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1A7C1F92D8843B100A1B002 /* AppIntents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppIntents.framework; path = System/Library/Frameworks/AppIntents.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3AA5FC502F1BB26600455AF0 /* inventory app */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "inventory app";
+			sourceTree = "<group>";
+		};
+		3AA5FC802F1BB26700455AF0 /* inventory appTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "inventory appTests";
+			sourceTree = "<group>";
+		};
+		3AA5FC812F1BB26700455AF0 /* inventory appUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "inventory appUITests";
+			sourceTree = "<group>";
+		};
+		A1B2C3D42F10000100AA0002 /* inventory app.xcodeproj/PulseRemoteWidgets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "inventory app.xcodeproj/PulseRemoteWidgets";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -42,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1A7C1F92D8843B100A1B001 /* AppIntents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,14 +103,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A1B2C3D42F10000100AA0003 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A994BF12F43EA3F00171069 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				F1A7C1F92D8843B100A1B002 /* AppIntents.framework */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		3AA5FC452F1BB26600455AF0 = {
 			isa = PBXGroup;
 			children = (
 				3AA5FC502F1BB26600455AF0 /* inventory app */,
+				3AA5FC802F1BB26700455AF0 /* inventory appTests */,
+				3AA5FC812F1BB26700455AF0 /* inventory appUITests */,
+				A1B2C3D42F10000100AA0002 /* inventory app.xcodeproj/PulseRemoteWidgets */,
 				3AA5FC4F2F1BB26600455AF0 /* Products */,
+				3A994BF12F43EA3F00171069 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +139,7 @@
 				3AA5FC4E2F1BB26600455AF0 /* inventory app.app */,
 				3AA5FC5B2F1BB26700455AF0 /* inventory appTests.xctest */,
 				3AA5FC652F1BB26700455AF0 /* inventory appUITests.xctest */,
+				A1B2C3D42F10000100AA0001 /* PulseRemoteWidgets.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,10 +154,12 @@
 				3AA5FC4A2F1BB26600455AF0 /* Sources */,
 				3AA5FC4B2F1BB26600455AF0 /* Frameworks */,
 				3AA5FC4C2F1BB26600455AF0 /* Resources */,
+				A1B2C3D42F10000100AA0010 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A1B2C3D42F10000100AA0012 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				3AA5FC502F1BB26600455AF0 /* inventory app */,
@@ -118,6 +184,9 @@
 			dependencies = (
 				3AA5FC5D2F1BB26700455AF0 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				3AA5FC802F1BB26700455AF0 /* inventory appTests */,
+			);
 			name = "inventory appTests";
 			packageProductDependencies = (
 			);
@@ -138,12 +207,37 @@
 			dependencies = (
 				3AA5FC672F1BB26700455AF0 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				3AA5FC812F1BB26700455AF0 /* inventory appUITests */,
+			);
 			name = "inventory appUITests";
 			packageProductDependencies = (
 			);
 			productName = "inventory appUITests";
 			productReference = 3AA5FC652F1BB26700455AF0 /* inventory appUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		A1B2C3D42F10000100AA0006 /* PulseRemoteWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1B2C3D42F10000100AA0007 /* Build configuration list for PBXNativeTarget "PulseRemoteWidgets" */;
+			buildPhases = (
+				A1B2C3D42F10000100AA0004 /* Sources */,
+				A1B2C3D42F10000100AA0003 /* Frameworks */,
+				A1B2C3D42F10000100AA0005 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A1B2C3D42F10000100AA0002 /* inventory app.xcodeproj/PulseRemoteWidgets */,
+			);
+			name = PulseRemoteWidgets;
+			packageProductDependencies = (
+			);
+			productName = PulseRemoteWidgets;
+			productReference = A1B2C3D42F10000100AA0001 /* PulseRemoteWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -157,6 +251,8 @@
 				TargetAttributes = {
 					3AA5FC4D2F1BB26600455AF0 = {
 						CreatedOnToolsVersion = 26.2;
+						DevelopmentTeam = Q568WBY4ST;
+						ProvisioningStyle = Automatic;
 					};
 					3AA5FC5A2F1BB26700455AF0 = {
 						CreatedOnToolsVersion = 26.2;
@@ -165,6 +261,11 @@
 					3AA5FC642F1BB26700455AF0 = {
 						CreatedOnToolsVersion = 26.2;
 						TestTargetID = 3AA5FC4D2F1BB26600455AF0;
+					};
+					A1B2C3D42F10000100AA0006 = {
+						CreatedOnToolsVersion = 26.2;
+						DevelopmentTeam = Q568WBY4ST;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -185,6 +286,7 @@
 				3AA5FC4D2F1BB26600455AF0 /* inventory app */,
 				3AA5FC5A2F1BB26700455AF0 /* inventory appTests */,
 				3AA5FC642F1BB26700455AF0 /* inventory appUITests */,
+				A1B2C3D42F10000100AA0006 /* PulseRemoteWidgets */,
 			);
 		};
 /* End PBXProject section */
@@ -205,6 +307,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3AA5FC632F1BB26700455AF0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1B2C3D42F10000100AA0005 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -235,6 +344,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A1B2C3D42F10000100AA0004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -247,6 +363,11 @@
 			isa = PBXTargetDependency;
 			target = 3AA5FC4D2F1BB26600455AF0 /* inventory app */;
 			targetProxy = 3AA5FC662F1BB26700455AF0 /* PBXContainerItemProxy */;
+		};
+		A1B2C3D42F10000100AA0012 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1B2C3D42F10000100AA0006 /* PulseRemoteWidgets */;
+			targetProxy = A1B2C3D42F10000100AA0013 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -375,18 +496,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "inventory app/inventory app.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q568WBY4ST;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Capture shelf photos to speed up counts.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Select shelf photos to tag items and update counts.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "inventory app.xcodeproj/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -394,6 +511,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.reggieboi.inventory-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -409,18 +527,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "inventory app/inventory app.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q568WBY4ST;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Capture shelf photos to speed up counts.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Select shelf photos to tag items and update counts.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "inventory app.xcodeproj/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -428,6 +542,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.reggieboi.inventory-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -518,6 +633,68 @@
 			};
 			name = Release;
 		};
+		A1B2C3D42F10000100AA0008 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = "inventory app.xcodeproj/PulseRemoteWidgets/PulseRemoteWidgets.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q568WBY4ST;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "inventory app.xcodeproj/PulseRemoteWidgets-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.reggieboi.inventory-app.widgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A1B2C3D42F10000100AA0009 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = "inventory app.xcodeproj/PulseRemoteWidgets/PulseRemoteWidgets.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q568WBY4ST;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "inventory app.xcodeproj/PulseRemoteWidgets-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.reggieboi.inventory-app.widgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -553,6 +730,15 @@
 			buildConfigurations = (
 				3AA5FC762F1BB26700455AF0 /* Debug */,
 				3AA5FC772F1BB26700455AF0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1B2C3D42F10000100AA0007 /* Build configuration list for PBXNativeTarget "PulseRemoteWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1B2C3D42F10000100AA0008 /* Debug */,
+				A1B2C3D42F10000100AA0009 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
